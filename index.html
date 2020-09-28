@@ -49,17 +49,27 @@
             </div>
             <div class="row margin-children">
               <div class="col-12">
-                <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> <i class='fa fa-eye'></i> show pollution</button>
+                <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> <i class='fa fa-eye'></i> Show Pollution</button>
               </div>
             </div>
             <div class="row margin-children">
               <div class="col-12">
-                <button id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> show evolution</button>
+                <button  id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> Show/Hide Evolution</button>
+              </div>
+            </div>
+            <div id= "chart_div" class="row margin-children chart">
+              <div class="col-12">
+                <canvas id="myChart" height="300px"></canvas>
               </div>
             </div>
             <div class="row margin-children">
               <div class="col-12">
-                <canvas id="myChart" width="400" height="400"></canvas>
+                <button  id = "show_hide_graph" class="btn btn-light btn-full" type="button" name="button"> <i class='fa fa-envelope'></i> Mail </button>
+              </div>
+            </div>
+            <div class="row margin-children">
+              <div class="col-12">
+                <button  id = "plant" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
               </div>
             </div>
           </div>
@@ -76,7 +86,7 @@
 
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-<script src='https://cdnjs.com/libraries/Chart.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
     var map = new mapboxgl.Map({
@@ -122,6 +132,28 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+var currentMarkers=[];
+var lng = 0;
+var lat = 0;
+var num = 0;
+map.on('click',  function (e) {
+
+lng = e.lngLat.wrap()["lng"];
+lat = e.lngLat.wrap()["lat"];
+if (currentMarkers!==null) {
+    for (var i = currentMarkers.length - 1; i >= 0; i--) {
+      currentMarkers[i].remove();
+    }
+}
+
+
+var markers = new mapboxgl.Marker()
+.setLngLat([lng, lat])
+.addTo(map);
+currentMarkers.push(markers);
+});
+
+
 
 
 </script>
@@ -132,6 +164,7 @@ var source_aded = false;
 var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 var view = true;
+chart_visible=false;
 
 function switchLayer(layer) {
 var layerId = layer.target.id;
@@ -157,6 +190,8 @@ document.getElementById("close2").onclick = function() {execute4()};
 document.getElementById("locate").onclick = function() {getLocation()};
 document.getElementById("reset").onclick = function() {reset()};
 document.getElementById("show_hide").onclick = function() {show_hide()};
+document.getElementById("show_hide_graph").onclick = function() {show_hide_graph()};
+document.getElementById("plant").onclick = function(){show_image()};
 
 function getLocation() {
 if (navigator.geolocation) {
@@ -165,7 +200,17 @@ navigator.geolocation.watchPosition(showPosition);
 alert("Geolocation is not supported by this browser.");
 }
 }
+function show_hide_graph(){
+  console.log("SHOW/HIDE");
+  if (chart_visible){
+    document.getElementById("chart_div").style.display = "none";
+    chart_visible = false;
+  }else{
+    document.getElementById("chart_div").style.display = "block";
+      chart_visible = true;
 
+  }
+}
 function showPosition(position) {
   map.flyTo({
     center: [position.coords.longitude,position.coords.latitude],
@@ -311,6 +356,53 @@ map.addLayer({
 }, 'waterway-label');
 }
 map.setLayoutProperty('pollution', 'visibility', 'visible');
+
+function show_image(){
+  for (var i = currentMarkers.length - 1; i >= 0; i--) {
+    var mark =currentMarkers[i];
+    num= num+1;
+console.log('points'+num.toString());
+
+  map.loadImage(
+            './img/tree1.png',
+            function (error, image) {
+                if (error) throw error;
+                map.addImage('cat'+num.toString(), image);
+                map.addSource('point', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': [
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [lng, lat]
+
+                                }
+                            }
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    'id': 'points'+num.toString(),
+                    'type': 'symbol',
+                    'source': 'point',
+
+                    'layout': {
+                        'icon-image': 'cat'+num.toString(),
+                        'icon-offset':[0,-500],
+                        'icon-size': 0.1
+                    }
+                });
+            }
+        );
+        currentMarkers[i].remove();
+        
+        }
+}
+
 </script>
 
 <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>

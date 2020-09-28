@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+    <link href='css/style.css' rel='stylesheet' />
+
+
+
+    <title>NASA Space Apps challenge</title>
+
+</head>
+  <body>
+
+
+    <div class="header-div">
+      <div class="left-menu" id="menu">
+          <div class="container full-page ">
+            <div class="row margin-children">
+              <div class="card">
+                <h3 class="card-header text-center cardhead">Display mode</h3>
+                <div class="card-body card">
+                  <div class="row" id="menu2">
+                      <input class="col-2 center-radio" id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked"/>
+                      <label class="col-10" for="streets-v11">streets</label>
+                      <input class="col-2 center-radio" id="light-v10" type="radio" name="rtoggle" value="light" />
+                      <label class="col-10"for="light-v10">light</label>
+                      <input class="col-2 center-radio" id="dark-v10" type="radio" name="rtoggle" value="dark" />
+                      <label class="col-10"for="dark-v10">dark</label>
+                      <input class="col-2 center-radio" id="satellite-v9" type="radio" name="rtoggle" value="satellite" />
+                      <label class="col-10" for="satellite-v9">satellite</label>
+                    </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row margin-children">
+              <div class="col-6 align-center text-center">
+                <button id="locate" class="btn btn-success btn-full" type="button" name="button"> <i class="fa fa-map-marker"></i> Locate Me!</button>
+              </div>
+              <div class="col-6 align-center text-center">
+                <button id = "reset" class="btn btn-warning btn-full" type="button" name="button"> <i class="fa fa-refresh"></i> Reset!</button>
+              </div>
+            </div>
+            <div class="row margin-children">
+              <div class="col-12">
+                <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> <i class='fa fa-eye'></i> show pollution</button>
+              </div>
+            </div>
+            <div class="row margin-children">
+              <div class="col-12">
+                <button id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> show evolution</button>
+              </div>
+            </div>
+            <div class="row margin-children">
+              <div class="col-12">
+                <canvas id="myChart" width="400" height="400"></canvas>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="right-map">
+        <div class="map1" id='map'></div>
+      </div>
+    </div>
+
+
+
+
+
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+<script src='https://cdnjs.com/libraries/Chart.js'></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-6.9273026,27.9693414],
+        zoom: 2
+    });
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+</script>
+
+<script>
+
+var source_aded = false;
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+var view = true;
+
+function switchLayer(layer) {
+var layerId = layer.target.id;
+map.setStyle('mapbox://styles/mapbox/' + layerId);
+source_aded = false;
+document.getElementById("show_hide").innerHTML ="<i class='fa fa-eye'></i>  show pollution";
+document.getElementById("show_hide").classList = "btn btn-primary btn-full"
+view = true;
+}
+
+for (var i = 0; i < inputs.length; i++) {
+inputs[i].onclick = switchLayer;
+}
+
+document.getElementById("close2").onclick = function() {execute4()};
+
+        function execute4() {
+            document.getElementById("infoBox2").style.visibility = "hidden";
+          }
+
+</script>
+<script>
+document.getElementById("locate").onclick = function() {getLocation()};
+document.getElementById("reset").onclick = function() {reset()};
+document.getElementById("show_hide").onclick = function() {show_hide()};
+
+function getLocation() {
+if (navigator.geolocation) {
+navigator.geolocation.watchPosition(showPosition);
+} else {
+alert("Geolocation is not supported by this browser.");
+}
+}
+
+function showPosition(position) {
+  map.flyTo({
+    center: [position.coords.longitude,position.coords.latitude],
+    essential: true,
+    zoom : 17
+  });
+
+}
+
+function reset(){
+  map.flyTo({
+    center: [-6.9273026,27.9693414],
+    zoom: 2,
+    essential: true,
+  });
+}
+
+function show_hide(){
+
+  if (view) {
+    document.getElementById("show_hide").innerHTML ="<i class='fa fa-eye-slash'></i> hide pollution";
+    document.getElementById("show_hide").classList = "btn btn-danger btn-full"
+    view = false;
+    show_pollution();
+  }else{
+    document.getElementById("show_hide").innerHTML ="<i class='fa fa-eye'></i>  show pollution";
+    document.getElementById("show_hide").classList = "btn btn-primary btn-full"
+    view = true;
+    remove_pollution();
+  }
+}
+function remove_pollution(){
+  console.log("remove layer");
+  map.setLayoutProperty('pollution', 'visibility', 'none');
+  //map.removeLayer("pollution");
+}
+
+function show_pollution(){
+  if (source_aded){
+    map.setLayoutProperty('pollution', 'visibility', 'visible');
+  }
+  else{
+    initsource();
+    source_aded = true;
+  }
+  console.log("ADDED GEOJSON");
+
+}
+function initsource(){
+  map.addSource('data', {
+    type: 'geojson',
+    data: './co2.geojson'
+  });
+  map.addLayer({
+  id: 'pollution',
+  type: 'heatmap',
+  source: 'data',
+  maxzoom: 15,
+  paint: {
+    // increase weight as diameter breast height increases
+    'heatmap-weight': {
+      property: 'CO2-emissions',
+      type: 'exponential',
+      stops: [
+        [1, 0],
+        [62, 1]
+      ]
+    },
+    // increase intensity as zoom level increases
+    'heatmap-intensity': {
+      stops: [
+        [11, 1],
+        [15, 3]
+      ]
+    },
+    // assign color values be applied to points depending on their density
+    'heatmap-color': [
+      'interpolate',
+      ['linear'],
+      ['heatmap-density'],
+      0, 'rgba(236,222,239,0)',
+      0.2, 'rgb(208,209,230)',
+      0.4, 'rgb(166,189,219)',
+      0.6, 'rgb(103,169,207)',
+      0.8, 'rgb(28,144,153)'
+    ],
+    // increase radius as zoom increases
+    'heatmap-radius': {
+      stops: [
+        [21, 25],
+        [25, 30]
+      ]
+    },
+    // decrease opacity to transition into the circle layer
+    'heatmap-opacity': {
+      default: 1,
+      stops: [
+        [14, 1],
+        [15, 0]
+      ]
+    },
+  }
+}, 'waterway-label');
+map.addLayer({
+  id: 'trees-point',
+  type: 'circle',
+  source: 'data',
+  minzoom: 14,
+  paint: {
+    // increase the radius of the circle as the zoom level and BANDWIDTH value increases
+    'circle-radius': {
+      property: 'CO2-emissions',
+      type: 'exponential',
+      stops: [
+        [{ zoom: 15, value: 1 }, 25],
+        [{ zoom: 15, value: 62 }, 20],
+        [{ zoom: 22, value: 1 }, 30],
+        [{ zoom: 22, value: 62 }, 60],
+      ]
+    },
+    'circle-color': {
+      property: 'CO2-emissions',
+      type: 'exponential',
+      stops: [
+        [0.0000001, 'rgba(236,222,239,0)'],
+        [0.10, 'rgb(236,222,239)'],
+        [0.20, 'rgb(208,209,230)'],
+        [0.30, 'rgb(166,189,219)'],
+        [0.50, 'rgb(103,169,207)'],
+        [0.70, 'rgb(28,144,153)'],
+        [0.90, 'rgb(1,108,89)']
+      ]
+    },
+    'circle-stroke-color': 'white',
+    'circle-stroke-width': 1,
+    'circle-opacity': {
+      stops: [
+        [14, 0],
+        [15, 1]
+      ]
+    }
+  }
+}, 'waterway-label');
+}
+map.setLayoutProperty('pollution', 'visibility', 'visible');
+</script>
+
+<script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

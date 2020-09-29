@@ -65,18 +65,19 @@
 
                 </select>
               </div>
-              <div class="col-12">
+              <div id="chartContainer" class="col-12">
                 <canvas id="myChart" height="300px"></canvas>
               </div>
             </div>
+
             <div class="row margin-children">
               <div class="col-12">
-                <button  id = "show_hide_graph" class="btn btn-light btn-full" type="button" name="button"> <i class='fa fa-envelope'></i> Mail </button>
+                <button  id = "plant" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
               </div>
             </div>
             <div class="row margin-children">
               <div class="col-12">
-                <button  id = "plant" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
+                <button  id = "show_hide_graph" class="btn btn-info btn-full" type="button" name="button"> <i class='fa fa-smile-o'></i> Show My Impact </button>
               </div>
             </div>
           </div>
@@ -164,8 +165,12 @@ function fillchart(){
       co2.push(temp[i]["CO2-emissions"]);
     }
 
+
+
+    document.getElementById("chartContainer").innerHTML = '&nbsp;';
+    document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
     var ctx = document.getElementById('myChart').getContext('2d');
-    mChart = new Chart(ctx, {
+    var mChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: year,
@@ -192,10 +197,13 @@ function fillchart(){
             }]
         },
         options: {
+          hover : {
+            mode:'nearest'
+          },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: false
                     }
                 }]
             }

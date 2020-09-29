@@ -32,18 +32,20 @@
                       <label class="col-10"for="light-v10">light</label>
                       <input class="col-2 center-radio" id="dark-v10" type="radio" name="rtoggle" value="dark" />
                       <label class="col-10"for="dark-v10">dark</label>
-                      <input class="col-2 center-radio" id="satellite-v9" type="radio" name="rtoggle" value="satellite" />
-                      <label class="col-10" for="satellite-v9">satellite</label>
                     </div>
                 </div>
               </div>
 
             </div>
             <div class="row margin-children">
-              <div class="col-6 align-center text-center">
+              <div class="col-12 align-center text-center">
                 <button id="locate" class="btn btn-success btn-full" type="button" name="button"> <i class="fa fa-map-marker"></i> Locate Me!</button>
               </div>
-              <div class="col-6 align-center text-center">
+
+            </div>
+            <div class="row margin-children">
+
+              <div class="col-12 align-center text-center">
                 <button id = "reset" class="btn btn-warning btn-full" type="button" name="button"> <i class="fa fa-refresh"></i> Reset!</button>
               </div>
             </div>
@@ -58,6 +60,11 @@
               </div>
             </div>
             <div id= "chart_div" class="row margin-children chart">
+              <div class="col-12">
+                <select class="form-control" name="country" class="" id="country_selector">
+
+                </select>
+              </div>
               <div class="col-12">
                 <canvas id="myChart" height="300px"></canvas>
               </div>
@@ -96,42 +103,9 @@
         zoom: 2
     });
     var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
+
+
+
 var currentMarkers=[];
 var lng = 0;
 var lat = 0;
@@ -164,7 +138,70 @@ var source_aded = false;
 var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 var view = true;
+var sel = document.getElementById('country_selector');
 chart_visible=false;
+
+sel.onchange = function(){fillchart()};
+
+function fillchart(){
+  var year=[];
+  var co2=[];
+  var temp = [];
+  var city = "";
+  $.getJSON('co2.geojson', function(data){
+    for (var i = 0;i<data.features.length;i++){
+      var key = data.features[i]["properties"]["Entity"];
+
+      if (key == sel.value){
+        temp.push(data.features[i]["properties"]);
+      }
+
+    }
+
+    temp = temp.slice(Math.max(temp.length - 6, 1));
+    for (var i = 0;i<temp.length;i++){
+      year.push(temp[i]["Year"]);
+      co2.push(temp[i]["CO2-emissions"]);
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    mChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: year,
+            datasets: [{
+                label: 'CO2 emissions',
+                data: co2,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+});}
 
 function switchLayer(layer) {
 var layerId = layer.target.id;
@@ -210,7 +247,21 @@ function show_hide_graph(){
       chart_visible = true;
 
   }
+  fill_selector();
+  fillchart()
 }
+var country_list  = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', "Cote d'Ivoire", 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Faeroe Islands', 'Falkland Islands', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks and Caicos Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
+
+function fill_selector(){
+  var sel = document.getElementById('country_selector');
+  for(var i = 0; i < country_list.length; i++) {
+    var opt = document.createElement('option');
+    opt.innerHTML = country_list[i];
+    opt.value = country_list[i];
+    sel.appendChild(opt);
+}
+}
+
 function showPosition(position) {
   map.flyTo({
     center: [position.coords.longitude,position.coords.latitude],
@@ -356,19 +407,27 @@ map.addLayer({
 }, 'waterway-label');
 }
 map.setLayoutProperty('pollution', 'visibility', 'visible');
-
+function randInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 function show_image(){
-  for (var i = currentMarkers.length - 1; i >= 0; i--) {
-    var mark =currentMarkers[i];
-    num= num+1;
-console.log('points'+num.toString());
+  if (num >= 20 ){
+    num = 0;
+
+  }
+  var rand = randInt(500);
+  num= num+10;
+
+    var mark =currentMarkers[0];
 
   map.loadImage(
-            './img/tree1.png',
+            './img/tree'+num.toString()+'.png',
             function (error, image) {
                 if (error) throw error;
-                map.addImage('cat'+num.toString(), image);
-                map.addSource('point', {
+                map.addImage('tree'+rand.toString(), image);
+
+
+                map.addSource('point'+rand.toString(), {
                     'type': 'geojson',
                     'data': {
                         'type': 'FeatureCollection',
@@ -385,26 +444,31 @@ console.log('points'+num.toString());
                     }
                 });
 
+
+
                 map.addLayer({
-                    'id': 'points'+num.toString(),
+                    'id': 'points'+rand.toString(),
                     'type': 'symbol',
-                    'source': 'point',
+                    'source': 'point'+rand.toString(),
 
                     'layout': {
-                        'icon-image': 'cat'+num.toString(),
+                        'icon-image': 'tree'+rand.toString(),
                         'icon-offset':[0,-500],
                         'icon-size': 0.1
                     }
                 });
             }
         );
-        currentMarkers[i].remove();
-        
+        for (var i = 0 ;i <currentMarkers.length;i++){
+          currentMarkers[i].remove();
         }
+
+
+
 }
 
 </script>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
 <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

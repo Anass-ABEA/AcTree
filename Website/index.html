@@ -242,11 +242,24 @@
           </div>
         </div>
 
+        <div class="row margin-children">
+          <div class="col-12">
+            <p class="btn-full align-center text-center"><i class='fa fa-save' style="color:purple;"></i> SAVE IT </p>
+          </div>
+          <div class="col-6">
+
+            <button class="btn btn-full" onClick="save()" type="button" name="button"> <i class="fa fa-upload"></i> SAVE</button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-full" onclick="load()" type="button" name="button"> <i class="fa fa-download"></i> LOAD</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="right-map">
-      <div class="map1" id='map'></div>
+    <div id="mapHolder" class="right-map">
+      <div class='map1' id='map'></div>
     </div>
   </div>
 
@@ -258,13 +271,17 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
   <script>
+  var map= null;
+  function init_map(){
   mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
-  var map = new mapboxgl.Map({
+  map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-6.9273026,27.9693414],
     zoom: 2
   });
+  }
+   init_map();
   var ctx = document.getElementById('myChart').getContext('2d');
 
 
@@ -309,6 +326,8 @@ var selectedTree= 0;
 var plantedTrees = [];
 sel.onchange = function(){fillchart()};
 
+
+
 function setImage(name){
   selectedTree = name;
 }
@@ -338,7 +357,7 @@ function fillchart2(){
       data: {
         labels: year,
         datasets: [{
-          label: 'CO2 emissions',
+          label: 'CO2 Concentration',
           data: conc,
           backgroundColor: [
             'rgba(54, 162, 235, 0.2)',
@@ -819,7 +838,7 @@ function fillchart2(){
       if (selectedTree!=0){
         num = selectedTree;
       }
-      plantedTrees.push([num,lng,lat]);
+      plantedTrees.push([rand,num,lng,lat]);
       map.loadImage(
         './img/tree'+num.toString()+'.png',
         function (error, image) {
@@ -867,8 +886,69 @@ function fillchart2(){
 
     }
 
+    function treesFromCookies(long,lati,rande,nume){
+        map.loadImage(
+        './img/tree'+nume.toString()+'.png',
+        function (error, image) {
+          if (error) throw error;
+          map.addImage('tree_loaded'+rande.toString(), image);
+          console.log('tree_loaded'+rande.toString());
+          map.addSource('point_loaded'+rande.toString(), {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': [long, lati]
+
+                  }
+                }
+              ]
+            }
+          });
+
+
+
+          map.addLayer({
+            'id': 'points_loaded'+rande.toString(),
+            'type': 'symbol',
+            'source': 'point_loaded'+rande.toString(),
+
+            'layout': {
+              'icon-image': 'tree_loaded'+rande.toString(),
+              'icon-offset':[0,-500],
+              'icon-size': 0.1
+            }
+          });
+        }
+      );
+    }
+
   </script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="./js/jquery.cookie.js"></script>
+  <script>
+  function save(){
+    $.cookie('name', JSON.stringify(plantedTrees));
+    console.log("saved");
+    alert("All saved!");
+  }
+  function load(){
+    plantedTrees= JSON.parse($.cookie('name'));
+    console.log("loaded");
+    console.log(plantedTrees);
+    for (var e = 0;e<plantedTrees.length;e++){
+      long  =  plantedTrees[e][2];
+      lati  =  plantedTrees[e][3];
+      rande =  plantedTrees[e][0];
+      nume  =  plantedTrees[e][1];
+      treesFromCookies(long,lati,rande,nume)
+    }
+  }
+  </script>
   <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
   <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

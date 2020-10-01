@@ -2,144 +2,293 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta charset="UTF-8">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-    <link href='css/style.css' rel='stylesheet' />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+  <link href='css/style.css' rel='stylesheet' />
 
 
 
-    <title>NASA Space Apps challenge</title>
+  <title>NASA Space Apps challenge</title>
 
 </head>
-  <body>
+<body>
 
-
-    <div class="header-div">
-      <div class="left-menu" id="menu">
-          <div class="container full-page ">
-            <div class="row margin-children">
-              <div class="card">
-                <h3 class="card-header text-center cardhead">Map Display mode</h3>
-                <div class="card-body card">
-                  <div class="row" id="menu2">
-                      <input class="col-2 center-radio" id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked"/>
-                      <label class="col-10" for="streets-v11">streets</label>
-                      <input class="col-2 center-radio" id="light-v10" type="radio" name="rtoggle" value="light" />
-                      <label class="col-10"for="light-v10">light</label>
-                      <input class="col-2 center-radio" id="dark-v10" type="radio" name="rtoggle" value="dark" />
-                      <label class="col-10"for="dark-v10">dark</label>
-                    </div>
-                </div>
+  <div class="modal fade" id="DoItModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title">DO IT</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-6 text-right">
+                <span>I can Finance planting</span>
+              </div>
+              <div class="col-1 ">
+                <strong id = "treecount"></strong>
+              </div>
+              <div class="col-5 ">
+                <span>Trees</span>
               </div>
 
             </div>
-            <div class="row margin-children">
+            <div class="row">
               <div class="col-12">
-                <p class="btn-full align-center text-center"><i class='fa fa-map'></i> MAP</p>
-              </div>
-              <div class="col-6 align-center text-center">
-                <button id="locate" class="btn btn-success btn-full" type="button" name="button"> <i class="fa fa-map-marker"></i> Locate Me!</button>
-              </div>
-              <div class="col-6 align-center text-center">
-                <button id = "reset" class="btn btn-warning btn-full" type="button" name="button"> <i class="fa fa-refresh"></i> Reset!</button>
+                <button class="btn btn-success btn-full" type="button" data-dismiss"modal" name="button"><i class="fa fa-leaf"></i> Plant them all!</button>
               </div>
             </div>
+            <div class="row">
 
-
-            <div class="row margin-children">
-              <div class="col-12">
-                <p class="btn-full align-center text-center"><i class='fa fa-eye'></i> VIEW DATA</p>
-              </div>
-              <div class="col-6">
-                <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> CO2 Emission</button>
-              </div>
-              <div class="col-6">
-                <button id = "show_hide_deathrate" class="btn btn-primary btn-full" type="button" name="button"> Death rate by pollution</button>
+              <div class="col-12 text-center">
+                <span>Help me plant the trees</span>
               </div>
             </div>
-            <div class="row margin-children" id="changer">
-              <div class="col-6">
-                <button  id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> Emission Graph</button>
-              </div>
-              <div class="col-6">
-                <button  id = "show_hide_graph2" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> CO2 Concentration</button>
-              </div>
-            </div>
-            <div id= "chart_div" class="row margin-children chart">
+            <div class="row">
               <div class="col-12">
-                <select class="form-control" name="country" class="" id="country_selector">
-
-                </select>
-              </div>
-              <div id="chartContainer" class="col-12">
-                <canvas id="myChart" height="300px"></canvas>
-              </div>
-            </div>
-
-            <div class="row margin-children">
-              <div class="col-12">
-                <p class="btn-full align-center text-center"><i class='fa fa-globe'></i> TAKE ACTION</p>
-              </div>
-              <div class="col-12">
-                <button  id = "plant" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
-              </div>
-            </div>
-            <div class="row margin-children">
-              <div class="col-12">
-                <button  id = "show_hide_graph3" class="btn btn-info btn-full" type="button" name="button"> <i class='fa fa-smile-o'></i> Show My Impact </button>
+                <button class="btn btn-warning btn-full" type="button" data-dismiss"modal" name="button"> <i class="fa fa-ticket"></i> Get Code</button>
               </div>
             </div>
           </div>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class="right-map">
-        <div class="map1" id='map'></div>
+  <div class="modal fade" id="DonateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title">Donate</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-6 text-right">
+                <span>Amount Raised</span>
+              </div>
+              <div class="col-6 ">
+                <strong id = "raised">$1567.32</strong>
+              </div>
+              <div class="col-12 text-center">
+                <span>to Plant <strong id = "treesCount">102</strong> Tree </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button class="btn btn-primary btn-full" type="button" name="button"> <i class="fa fa-paypal"></i> Paypal</button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-primary btn-full" type="button" name="button"> <i class="fa fa-money"></i> Money</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="TreeModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title">Select a Tree</h5>
+          <button onclick="setImage(0)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(10)" type="button" class="btn" name="button"> <img src="./img/tree10.png" class="tree"> </button>
+              </div>
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(20)" type="button" class="btn" name="button"> <img src="./img/tree20.png" class="tree"> </button>
+              </div>
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(30)" type="button" class="btn" name="button"> <img src="./img/tree30.png" class="tree"> </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(40)" type="button" class="btn" name="button"> <img src="./img/tree40.png" class="tree"> </button>
+              </div>
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(50)" type="button" class="btn" name="button"> <img src="./img/tree50.png" class="tree"> </button>
+              </div>
+              <div class="col-4 align-center text-center">
+                <button onclick="setImage(60)" type="button" class="btn" name="button"> <img src="./img/tree60.png" class="tree"> </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="header-div">
+    <div class="left-menu" id="menu">
+      <div class="container full-page ">
+        <div class="row margin-children">
+          <div class="card">
+            <h3 class="card-header text-center cardhead">Map Display mode</h3>
+            <div class="card-body card">
+              <div class="row" id="menu2">
+                <div class="col-4">
+                  <input class="col center-radio" id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked"/>
+                  <label class="col text-center" for="streets-v11">streets</label>
+                </div>
+                <div class="col-4">
+                  <input class="col center-radio" id="light-v10" type="radio" name="rtoggle" value="light" />
+                  <label class="col text-center"for="light-v10">light</label>
+                </div>
+                <div class="col-4">
+                  <input class="col center-radio" id="dark-v10" type="radio" name="rtoggle" value="dark" />
+                  <label class="col text-center"for="dark-v10">dark</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row margin-children">
+          <div class="col-12">
+            <p class="btn-full align-center text-center"><i class='fa fa-map' style="color:#17a2b8;"></i> MAP</p>
+          </div>
+          <div class="col-6 align-center text-center">
+            <button id="locate" class="btn btn-success btn-full" type="button" name="button"> <i class="fa fa-map-marker"></i> Locate Me!</button>
+          </div>
+          <div class="col-6 align-center text-center">
+            <button id = "reset" class="btn btn-warning btn-full" type="button" name="button"> <i class="fa fa-refresh"></i> Reset!</button>
+          </div>
+        </div>
+
+
+        <div class="row margin-children">
+          <div class="col-12">
+            <p class="btn-full align-center text-center"><i class='fa fa-eye' style="color:red;"></i> VIEW DATA</p>
+          </div>
+          <div class="col-6">
+            <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> CO2 Emission</button>
+          </div>
+          <div class="col-6">
+            <button id = "show_hide_deathrate" class="btn btn-primary btn-full" type="button" name="button"> Death rate by pollution</button>
+          </div>
+        </div>
+        <div class="row margin-children" id="changer">
+          <div class="col-6">
+            <button  id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> Emission Graph</button>
+          </div>
+          <div class="col-6">
+            <button  id = "show_hide_graph2" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> CO2 Concentration</button>
+          </div>
+        </div>
+        <div id= "chart_div" class="row margin-children chart">
+          <div class="col-12">
+            <select class="form-control" name="country" class="" id="country_selector">
+
+            </select>
+          </div>
+          <div id="chartContainer" class="col-12">
+            <canvas id="myChart" height="300px"></canvas>
+          </div>
+        </div>
+
+        <div class="row margin-children">
+          <div class="col-12">
+            <p class="btn-full align-center text-center"><i class='fa fa-globe' style="color:green;"></i> TAKE ACTION</p>
+          </div>
+          <div class="col-6">
+
+            <button   data-toggle="modal" data-target="#TreeModal" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Select a Tree </button>
+          </div>
+          <div class="col-6">
+            <button  id = "plant"  class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
+          </div>
+        </div>
+        <div class="row margin-children">
+          <div class="col-12">
+            <button  id = "show_hide_graph3" class="btn btn-info btn-full" type="button" name="button"> <i class='fa fa-smile-o'></i> Show My Impact </button>
+          </div>
+        </div>
+
+        <div class="row margin-children">
+          <div class="col-12">
+            <p class="btn-full align-center text-center"><i class='fa fa-globe' style="color:green;"></i> MAKE IT REAL</p>
+          </div>
+          <div class="col-6">
+
+            <button data-toggle="modal" data-target="#DoItModal" onclick="modalDoItOppening()" class="btn btn-primary btn-full" type="button" name="button"> <i class='fa fa-check-square-o'></i> DO IT!</button>
+          </div>
+          <div class="col-6">
+            <button data-toggle="modal" data-target="#DonateModal" class="btn btn-warning btn-full" type="button" name="button"> <i class='fa fa-handshake-o'></i> Fund IT!</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
+    <div class="right-map">
+      <div class="map1" id='map'></div>
+    </div>
+  </div>
 
 
 
 
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-6.9273026,27.9693414],
-        zoom: 2
-    });
-    var ctx = document.getElementById('myChart').getContext('2d');
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-6.9273026,27.9693414],
+    zoom: 2
+  });
+  var ctx = document.getElementById('myChart').getContext('2d');
 
 
 
-var currentMarkers=[];
-var lng = 0;
-var lat = 0;
-var num = 0;
-map.on('click',  function (e) {
+  var currentMarkers=[];
+  var lng = 0;
+  var lat = 0;
+  var num = 0;
+  map.on('click',  function (e) {
 
-lng = e.lngLat.wrap()["lng"];
-lat = e.lngLat.wrap()["lat"];
-if (currentMarkers!==null) {
-    for (var i = currentMarkers.length - 1; i >= 0; i--) {
-      currentMarkers[i].remove();
+    lng = e.lngLat.wrap()["lng"];
+    lat = e.lngLat.wrap()["lat"];
+    if (currentMarkers!==null) {
+      for (var i = currentMarkers.length - 1; i >= 0; i--) {
+        currentMarkers[i].remove();
+      }
     }
-}
 
 
-var markers = new mapboxgl.Marker()
-.setLngLat([lng, lat])
-.addTo(map);
-currentMarkers.push(markers);
-});
+    var markers = new mapboxgl.Marker()
+    .setLngLat([lng, lat])
+    .addTo(map);
+    currentMarkers.push(markers);
+  });
 
 
 
@@ -156,8 +305,17 @@ var view = true;
 var view_deathrate =true;
 var sel = document.getElementById('country_selector');
 chart_visible=false;
-
+var selectedTree= 0;
+var plantedTrees = [];
 sel.onchange = function(){fillchart()};
+
+function setImage(name){
+  selectedTree = name;
+}
+
+function modalDoItOppening(){
+  document.getElementById("treecount").innerHTML = plantedTrees.length;
+}
 
 function fillchart2(){
   var year=[];
@@ -176,541 +334,544 @@ function fillchart2(){
     document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
     var ctx = document.getElementById('myChart').getContext('2d');
     var mChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: year,
+        datasets: [{
+          label: 'CO2 emissions',
+          data: conc,
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(54, 162, 235, 0.2)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(54, 162, 235, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        hover : {
+          mode:'nearest'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        }
+      }
+    });
+  });}
+
+
+  function fillchart(){
+    document.getElementById('country_selector').style.display = "block";
+    var year=[];
+    var co2=[];
+    var temp = [];
+    var city = "";
+    $.getJSON('co2.geojson', function(data){
+      for (var i = 0;i<data.features.length;i++){
+        var key = data.features[i]["properties"]["Entity"];
+
+        if (key == sel.value){
+          temp.push(data.features[i]["properties"]);
+        }
+
+      }
+
+      temp = temp.slice(Math.max(temp.length - 6, 1));
+      for (var i = 0;i<temp.length;i++){
+        year.push(temp[i]["Year"]);
+        co2.push(temp[i]["CO2-emissions"]);
+      }
+
+
+
+      document.getElementById("chartContainer").innerHTML = '&nbsp;';
+      document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var mChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: year,
-            datasets: [{
-                label: 'CO2 emissions',
-                data: conc,
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
-                borderWidth: 1
-            }]
+          labels: year,
+          datasets: [{
+            label: 'CO2 emissions',
+            data: co2,
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+          }]
         },
         options: {
           hover : {
             mode:'nearest'
           },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            }
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          }
         }
-    });
-});}
+      });
+    });}
+
+    function switchLayer(layer) {
+      var layerId = layer.target.id;
+      map.setStyle('mapbox://styles/mapbox/' + layerId);
+      source_aded = false;
+      source_aded_deathrate=false;
+      document.getElementById("show_hide").innerHTML =" CO2 Emission";
+      document.getElementById("show_hide").classList = "btn btn-primary btn-full"
+      view = true;
+    }
+
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].onclick = switchLayer;
+    }
+
+    document.getElementById("close2").onclick = function() {execute4()};
+
+    function execute4() {
+      document.getElementById("infoBox2").style.visibility = "hidden";
+    }
+
+    </script>
+    <script>
+    document.getElementById("locate").onclick = function() {getLocation()};
+    document.getElementById("reset").onclick = function() {reset()};
+    document.getElementById("show_hide").onclick = function() {show_hide()};
+    document.getElementById("show_hide_deathrate").onclick = function() {show_hide_deathrate()};
+    document.getElementById("show_hide_graph").onclick = function() {show_hide_graph()};
+    document.getElementById("show_hide_graph2").onclick = function() {show_hide_graph2()};
+    document.getElementById("plant").onclick = function(){show_image()};
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+    function show_hide_graph(){
+      if (chart_visible){
+        document.getElementById("chart_div").style.display = "none";
+        chart_visible = false;
+      }else{
+
+        document.getElementById("chart_div").style.display = "block";
+        chart_visible = true;
+
+      }
+      fill_selector();
+      fillchart();
+    }
+    function show_hide_graph2(){
+      if (chart_visible){
+        document.getElementById("chart_div").style.display = "none";
+        chart_visible = false;
+      }else{
+        document.getElementById("chart_div").style.display = "block";
+        chart_visible = true;
+
+      }
+      fillchart2();
+    }
 
 
-function fillchart(){
-  document.getElementById('country_selector').style.display = "block";
-  var year=[];
-  var co2=[];
-  var temp = [];
-  var city = "";
-  $.getJSON('co2.geojson', function(data){
-    for (var i = 0;i<data.features.length;i++){
-      var key = data.features[i]["properties"]["Entity"];
+    var country_list  = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', "Cote d'Ivoire", 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Faeroe Islands', 'Falkland Islands', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks and Caicos Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
 
-      if (key == sel.value){
-        temp.push(data.features[i]["properties"]);
+    function fill_selector(){
+      var sel = document.getElementById('country_selector');
+      for(var i = 0; i < country_list.length; i++) {
+        var opt = document.createElement('option');
+        opt.innerHTML = country_list[i];
+        opt.value = country_list[i];
+        sel.appendChild(opt);
+      }
+    }
+
+    function showPosition(position) {
+      map.flyTo({
+        center: [position.coords.longitude,position.coords.latitude],
+        essential: true,
+        zoom : 17
+      });
+
+    }
+
+    function reset(){
+      map.flyTo({
+        center: [-6.9273026,27.9693414],
+        zoom: 2,
+        essential: true,
+      });
+    }
+
+    function show_hide(){
+
+      if (view) {
+        document.getElementById("show_hide").classList = "btn btn-danger btn-full"
+        view = false;
+        show_pollution();
+      }else{
+        document.getElementById("show_hide").classList = "btn btn-primary btn-full"
+        view = true;
+        remove_pollution();
+      }
+    }
+    function show_hide_deathrate(){
+
+      if (view_deathrate) {
+        document.getElementById("show_hide_deathrate").classList = "btn btn-danger btn-full"
+        view_deathrate = false;
+        show_deatrate();
+      }else{
+        document.getElementById("show_hide_deathrate").classList = "btn btn-primary btn-full"
+        view_deathrate = true;
+        remve_deatrate();
+      }
+    }
+    function remove_pollution(){
+      map.setLayoutProperty('pollution', 'visibility', 'none');
+      //map.removeLayer("pollution");
+    }
+
+    function remve_deatrate(){
+      map.setLayoutProperty('deathrate', 'visibility', 'none');
+      //map.removeLayer("pollution");
+    }
+
+    function show_pollution(){
+      if (source_aded){
+        map.setLayoutProperty('pollution', 'visibility', 'visible');
+      }
+      else{
+        initsource();
+        source_aded = true;
       }
 
     }
 
-    temp = temp.slice(Math.max(temp.length - 6, 1));
-    for (var i = 0;i<temp.length;i++){
-      year.push(temp[i]["Year"]);
-      co2.push(temp[i]["CO2-emissions"]);
+    function show_deatrate(){
+      if (source_aded_deathrate){
+        map.setLayoutProperty('deathrate', 'visibility', 'visible');
+      }
+      else{
+        initsource2();
+        source_aded_deathrate = true;
+      }
+
     }
-
-
-
-    document.getElementById("chartContainer").innerHTML = '&nbsp;';
-    document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var mChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: year,
-            datasets: [{
-                label: 'CO2 emissions',
-                data: co2,
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-          hover : {
-            mode:'nearest'
+    function initsource2(){
+      map.addSource('data2', {
+        type: 'geojson',
+        data: './death-rates-total-air-pollution.geojson'
+      });
+      map.addLayer({
+        id: 'deathrate',
+        type: 'heatmap',
+        source: 'data2',
+        maxzoom: 15,
+        paint: {
+          // increase weight as diameter breast height increases
+          'heatmap-weight': {
+            property: 'Deaths - Air pollution - Sex: Both - Age: Age-standardized (Rate)',
+            type: 'exponential',
+            stops: [
+              [1, 0],
+              [62, 1]
+            ]
           },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            }
+          // increase intensity as zoom level increases
+          'heatmap-intensity': {
+            stops: [
+              [11, 1],
+              [15, 3]
+            ]
+          },
+          // assign color values be applied to points depending on their density
+          'heatmap-color': [
+            'interpolate',
+            ['linear'],
+            ['heatmap-density'],
+            0, 'rgba(236,12,3,0.1)',
+            0.2, 'rgb(208,12,3)',
+            0.4, 'rgb(166,12,3)',
+            0.6, 'rgb(103,12,3)',
+            0.8, 'rgb(28,12,3)'
+          ],
+          // increase radius as zoom increases
+          'heatmap-radius': {
+            stops: [
+              [21, 25],
+              [25, 30]
+            ]
+          },
+          // decrease opacity to transition into the circle layer
+          'heatmap-opacity': {
+            default: 1,
+            stops: [
+              [14, 1],
+              [15, 0]
+            ]
+          },
         }
-    });
-});}
-
-function switchLayer(layer) {
-var layerId = layer.target.id;
-map.setStyle('mapbox://styles/mapbox/' + layerId);
-source_aded = false;
-source_aded_deathrate=false;
-document.getElementById("show_hide").innerHTML =" CO2 Emission";
-document.getElementById("show_hide").classList = "btn btn-primary btn-full"
-view = true;
-}
-
-for (var i = 0; i < inputs.length; i++) {
-inputs[i].onclick = switchLayer;
-}
-
-document.getElementById("close2").onclick = function() {execute4()};
-
-        function execute4() {
-            document.getElementById("infoBox2").style.visibility = "hidden";
+      }, 'waterway-label');
+      map.addLayer({
+        id: 'trees-point2',
+        type: 'circle',
+        source: 'data',
+        minzoom: 14,
+        paint: {
+          // increase the radius of the circle as the zoom level and BANDWIDTH value increases
+          'circle-radius': {
+            property: 'CO2-emissions',
+            type: 'exponential',
+            stops: [
+              [{ zoom: 15, value: 1 }, 25],
+              [{ zoom: 15, value: 62 }, 20],
+              [{ zoom: 22, value: 1 }, 30],
+              [{ zoom: 22, value: 62 }, 60],
+            ]
+          },
+          'circle-color': {
+            property: 'CO2-emissions',
+            type: 'exponential',
+            stops: [
+              [0, 'rgb(236,222,239)'],
+              [0.10, 'rgb(236,222,239)'],
+              [0.20, 'rgb(208,209,230)'],
+              [0.30, 'rgb(166,189,219)'],
+              [0.50, 'rgb(103,169,207)'],
+              [0.70, 'rgb(28,144,153)'],
+              [0.90, 'rgb(1,108,89)']
+            ]
+          },
+          'circle-stroke-color': 'white',
+          'circle-stroke-width': 1,
+          'circle-opacity': {
+            stops: [
+              [14, 0],
+              [15, 1]
+            ]
           }
-
-</script>
-<script>
-document.getElementById("locate").onclick = function() {getLocation()};
-document.getElementById("reset").onclick = function() {reset()};
-document.getElementById("show_hide").onclick = function() {show_hide()};
-document.getElementById("show_hide_deathrate").onclick = function() {show_hide_deathrate()};
-document.getElementById("show_hide_graph").onclick = function() {show_hide_graph()};
-document.getElementById("show_hide_graph2").onclick = function() {show_hide_graph2()};
-document.getElementById("plant").onclick = function(){show_image()};
-
-function getLocation() {
-if (navigator.geolocation) {
-navigator.geolocation.watchPosition(showPosition);
-} else {
-alert("Geolocation is not supported by this browser.");
-}
-}
-function show_hide_graph(){
-  if (chart_visible){
-    document.getElementById("chart_div").style.display = "none";
-    chart_visible = false;
-  }else{
-
-    document.getElementById("chart_div").style.display = "block";
-    chart_visible = true;
-
-  }
-  fill_selector();
-  fillchart();
-}
-function show_hide_graph2(){
-  if (chart_visible){
-    document.getElementById("chart_div").style.display = "none";
-    chart_visible = false;
-  }else{
-    document.getElementById("chart_div").style.display = "block";
-      chart_visible = true;
-
-  }
-  fillchart2();
-}
-
-
-var country_list  = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', "Cote d'Ivoire", 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Faeroe Islands', 'Falkland Islands', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks and Caicos Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
-
-function fill_selector(){
-  var sel = document.getElementById('country_selector');
-  for(var i = 0; i < country_list.length; i++) {
-    var opt = document.createElement('option');
-    opt.innerHTML = country_list[i];
-    opt.value = country_list[i];
-    sel.appendChild(opt);
-}
-}
-
-function showPosition(position) {
-  map.flyTo({
-    center: [position.coords.longitude,position.coords.latitude],
-    essential: true,
-    zoom : 17
-  });
-
-}
-
-function reset(){
-  map.flyTo({
-    center: [-6.9273026,27.9693414],
-    zoom: 2,
-    essential: true,
-  });
-}
-
-function show_hide(){
-
-  if (view) {
-    document.getElementById("show_hide").classList = "btn btn-danger btn-full"
-    view = false;
-    show_pollution();
-  }else{
-    document.getElementById("show_hide").classList = "btn btn-primary btn-full"
-    view = true;
-    remove_pollution();
-  }
-}
-function show_hide_deathrate(){
-
-  if (view_deathrate) {
-    document.getElementById("show_hide_deathrate").classList = "btn btn-danger btn-full"
-    view_deathrate = false;
-    show_deatrate();
-  }else{
-    document.getElementById("show_hide_deathrate").classList = "btn btn-primary btn-full"
-    view_deathrate = true;
-    remve_deatrate();
-  }
-}
-function remove_pollution(){
-  map.setLayoutProperty('pollution', 'visibility', 'none');
-  //map.removeLayer("pollution");
-}
-
-function remve_deatrate(){
-  map.setLayoutProperty('deathrate', 'visibility', 'none');
-  //map.removeLayer("pollution");
-}
-
-function show_pollution(){
-  if (source_aded){
-    map.setLayoutProperty('pollution', 'visibility', 'visible');
-  }
-  else{
-    initsource();
-    source_aded = true;
-  }
-
-}
-
-function show_deatrate(){
-  if (source_aded_deathrate){
-    map.setLayoutProperty('deathrate', 'visibility', 'visible');
-  }
-  else{
-    initsource2();
-    source_aded_deathrate = true;
-  }
-
-}
-function initsource2(){
-  map.addSource('data2', {
-    type: 'geojson',
-    data: './death-rates-total-air-pollution.geojson'
-  });
-  map.addLayer({
-  id: 'deathrate',
-  type: 'heatmap',
-  source: 'data2',
-  maxzoom: 15,
-  paint: {
-    // increase weight as diameter breast height increases
-    'heatmap-weight': {
-      property: 'Deaths - Air pollution - Sex: Both - Age: Age-standardized (Rate)',
-      type: 'exponential',
-      stops: [
-        [1, 0],
-        [62, 1]
-      ]
-    },
-    // increase intensity as zoom level increases
-    'heatmap-intensity': {
-      stops: [
-        [11, 1],
-        [15, 3]
-      ]
-    },
-    // assign color values be applied to points depending on their density
-    'heatmap-color': [
-      'interpolate',
-      ['linear'],
-      ['heatmap-density'],
-      0, 'rgba(236,12,3,0.1)',
-      0.2, 'rgb(208,12,3)',
-      0.4, 'rgb(166,12,3)',
-      0.6, 'rgb(103,12,3)',
-      0.8, 'rgb(28,12,3)'
-    ],
-    // increase radius as zoom increases
-    'heatmap-radius': {
-      stops: [
-        [21, 25],
-        [25, 30]
-      ]
-    },
-    // decrease opacity to transition into the circle layer
-    'heatmap-opacity': {
-      default: 1,
-      stops: [
-        [14, 1],
-        [15, 0]
-      ]
-    },
-  }
-}, 'waterway-label');
-map.addLayer({
-  id: 'trees-point2',
-  type: 'circle',
-  source: 'data',
-  minzoom: 14,
-  paint: {
-    // increase the radius of the circle as the zoom level and BANDWIDTH value increases
-    'circle-radius': {
-      property: 'CO2-emissions',
-      type: 'exponential',
-      stops: [
-        [{ zoom: 15, value: 1 }, 25],
-        [{ zoom: 15, value: 62 }, 20],
-        [{ zoom: 22, value: 1 }, 30],
-        [{ zoom: 22, value: 62 }, 60],
-      ]
-    },
-    'circle-color': {
-      property: 'CO2-emissions',
-      type: 'exponential',
-      stops: [
-        [0, 'rgb(236,222,239)'],
-        [0.10, 'rgb(236,222,239)'],
-        [0.20, 'rgb(208,209,230)'],
-        [0.30, 'rgb(166,189,219)'],
-        [0.50, 'rgb(103,169,207)'],
-        [0.70, 'rgb(28,144,153)'],
-        [0.90, 'rgb(1,108,89)']
-      ]
-    },
-    'circle-stroke-color': 'white',
-    'circle-stroke-width': 1,
-    'circle-opacity': {
-      stops: [
-        [14, 0],
-        [15, 1]
-      ]
-    }
-  }
-}, 'waterway-label');
-
-map.on('click', 'trees-point2', function(e) {
-  new mapboxgl.Popup()
-    .setLngLat(e.features[0].geometry.coordinates)
-    .setHTML('<b>Deaths:</b> ' + e.features[0].properties.dbh)
-    .addTo(map);
-});
-
-}
-
-
-function initsource(){
-  map.addSource('data', {
-    type: 'geojson',
-    data: './co2.geojson'
-  });
-  map.addLayer({
-  id: 'pollution',
-  type: 'heatmap',
-  source: 'data',
-  maxzoom: 15,
-  paint: {
-    // increase weight as diameter breast height increases
-    'heatmap-weight': {
-      property: 'CO2-emissions',
-      type: 'exponential',
-      stops: [
-        [1, 0],
-        [62, 1]
-      ]
-    },
-    // increase intensity as zoom level increases
-    'heatmap-intensity': {
-      stops: [
-        [11, 1],
-        [15, 3]
-      ]
-    },
-    // assign color values be applied to points depending on their density
-    'heatmap-color': [
-      'interpolate',
-      ['linear'],
-      ['heatmap-density'],
-      0, 'rgba(236,222,239,0)',
-      0.2, 'rgb(208,209,230)',
-      0.4, 'rgb(166,189,219)',
-      0.6, 'rgb(103,169,207)',
-      0.8, 'rgb(28,144,153)'
-    ],
-    // increase radius as zoom increases
-    'heatmap-radius': {
-      stops: [
-        [21, 25],
-        [25, 30]
-      ]
-    },
-    // decrease opacity to transition into the circle layer
-    'heatmap-opacity': {
-      default: 1,
-      stops: [
-        [14, 1],
-        [15, 0]
-      ]
-    },
-  }
-}, 'waterway-label');
-
-map.addLayer({
-  id: 'trees-point',
-  type: 'circle',
-  source: 'data',
-  minzoom: 14,
-  paint: {
-    // increase the radius of the circle as the zoom level and BANDWIDTH value increases
-    'circle-radius': {
-      property: 'CO2-emissions',
-      type: 'exponential',
-      stops: [
-        [{ zoom: 15, value: 1 }, 25],
-        [{ zoom: 15, value: 62 }, 20],
-        [{ zoom: 22, value: 1 }, 30],
-        [{ zoom: 22, value: 62 }, 60],
-      ]
-    },
-    'circle-color': {
-      property: 'CO2-emissions',
-      type: 'exponential',
-      stops: [
-        [0, 'rgba(236,222,239,0.1)'],
-        [0.10, 'rgb(236,222,239)'],
-        [0.20, 'rgb(208,209,230)'],
-        [0.30, 'rgb(166,189,219)'],
-        [0.50, 'rgb(103,169,207)'],
-        [0.70, 'rgb(28,144,153)'],
-        [0.90, 'rgb(1,108,89)']
-      ]
-    },
-    'circle-stroke-color': 'white',
-    'circle-stroke-width': 1,
-    'circle-opacity': {
-      stops: [
-        [14, 0],
-        [15, 1]
-      ]
-    }
-  }
-}, 'waterway-label');
-
-map.on('click', 'trees-point', function(e) {
-
-  new mapboxgl.Popup()
-    .setLngLat(e.features[0].geometry.coordinates)
-    .setHTML('<b>CO2-emissions:</b> ' + e.features[0].properties["CO2-emissions"])
-    .addTo(map);
-    ;
-});
-
-}
-map.setLayoutProperty('pollution', 'visibility', 'visible');
-function randInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-function show_image(){
-  if (num >= 20 ){
-    num = 0;
-
-  }
-  var rand = randInt(500);
-  num= num+10;
-
-    var mark =currentMarkers[0];
-
-  map.loadImage(
-            './img/tree'+num.toString()+'.png',
-            function (error, image) {
-                if (error) throw error;
-                map.addImage('tree'+rand.toString(), image);
-
-
-                map.addSource('point'+rand.toString(), {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
-                        'features': [
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': [lng, lat]
-
-                                }
-                            }
-                        ]
-                    }
-                });
-
-
-
-                map.addLayer({
-                    'id': 'points'+rand.toString(),
-                    'type': 'symbol',
-                    'source': 'point'+rand.toString(),
-
-                    'layout': {
-                        'icon-image': 'tree'+rand.toString(),
-                        'icon-offset':[0,-500],
-                        'icon-size': 0.1
-                    }
-                });
-            }
-        );
-        for (var i = 0 ;i <currentMarkers.length;i++){
-          currentMarkers[i].remove();
         }
+      }, 'waterway-label');
+
+      map.on('click', 'trees-point2', function(e) {
+        new mapboxgl.Popup()
+        .setLngLat(e.features[0].geometry.coordinates)
+        .setHTML('<b>Deaths:</b> ' + e.features[0].properties.dbh)
+        .addTo(map);
+      });
+
+    }
+
+
+    function initsource(){
+      map.addSource('data', {
+        type: 'geojson',
+        data: './co2.geojson'
+      });
+      map.addLayer({
+        id: 'pollution',
+        type: 'heatmap',
+        source: 'data',
+        maxzoom: 15,
+        paint: {
+          // increase weight as diameter breast height increases
+          'heatmap-weight': {
+            property: 'CO2-emissions',
+            type: 'exponential',
+            stops: [
+              [1, 0],
+              [62, 1]
+            ]
+          },
+          // increase intensity as zoom level increases
+          'heatmap-intensity': {
+            stops: [
+              [11, 1],
+              [15, 3]
+            ]
+          },
+          // assign color values be applied to points depending on their density
+          'heatmap-color': [
+            'interpolate',
+            ['linear'],
+            ['heatmap-density'],
+            0, 'rgba(236,222,239,0)',
+            0.2, 'rgb(208,209,230)',
+            0.4, 'rgb(166,189,219)',
+            0.6, 'rgb(103,169,207)',
+            0.8, 'rgb(28,144,153)'
+          ],
+          // increase radius as zoom increases
+          'heatmap-radius': {
+            stops: [
+              [21, 25],
+              [25, 30]
+            ]
+          },
+          // decrease opacity to transition into the circle layer
+          'heatmap-opacity': {
+            default: 1,
+            stops: [
+              [14, 1],
+              [15, 0]
+            ]
+          },
+        }
+      }, 'waterway-label');
+
+      map.addLayer({
+        id: 'trees-point',
+        type: 'circle',
+        source: 'data',
+        minzoom: 14,
+        paint: {
+          // increase the radius of the circle as the zoom level and BANDWIDTH value increases
+          'circle-radius': {
+            property: 'CO2-emissions',
+            type: 'exponential',
+            stops: [
+              [{ zoom: 15, value: 1 }, 25],
+              [{ zoom: 15, value: 62 }, 20],
+              [{ zoom: 22, value: 1 }, 30],
+              [{ zoom: 22, value: 62 }, 60],
+            ]
+          },
+          'circle-color': {
+            property: 'CO2-emissions',
+            type: 'exponential',
+            stops: [
+              [0, 'rgba(236,222,239,0.1)'],
+              [0.10, 'rgb(236,222,239)'],
+              [0.20, 'rgb(208,209,230)'],
+              [0.30, 'rgb(166,189,219)'],
+              [0.50, 'rgb(103,169,207)'],
+              [0.70, 'rgb(28,144,153)'],
+              [0.90, 'rgb(1,108,89)']
+            ]
+          },
+          'circle-stroke-color': 'white',
+          'circle-stroke-width': 1,
+          'circle-opacity': {
+            stops: [
+              [14, 0],
+              [15, 1]
+            ]
+          }
+        }
+      }, 'waterway-label');
+
+      map.on('click', 'trees-point', function(e) {
+
+        new mapboxgl.Popup()
+        .setLngLat(e.features[0].geometry.coordinates)
+        .setHTML('<b>CO2-emissions:</b> ' + e.features[0].properties["CO2-emissions"])
+        .addTo(map);
+        ;
+      });
+
+    }
+    map.setLayoutProperty('pollution', 'visibility', 'visible');
+    function randInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+    function show_image(){
+      if (num >= 20 ){
+        num = 0;
+
+      }
+      var rand = randInt(500);
+      num= num+10;
+
+      var mark =currentMarkers[0];
+      if (selectedTree!=0){
+        num = selectedTree;
+      }
+      plantedTrees.push([num,lng,lat]);
+      map.loadImage(
+        './img/tree'+num.toString()+'.png',
+        function (error, image) {
+          if (error) throw error;
+          map.addImage('tree'+rand.toString(), image);
+
+
+          map.addSource('point'+rand.toString(), {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': [lng, lat]
+
+                  }
+                }
+              ]
+            }
+          });
 
 
 
-}
+          map.addLayer({
+            'id': 'points'+rand.toString(),
+            'type': 'symbol',
+            'source': 'point'+rand.toString(),
 
-</script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            'layout': {
+              'icon-image': 'tree'+rand.toString(),
+              'icon-offset':[0,-500],
+              'icon-size': 0.1
+            }
+          });
+        }
+      );
+      for (var i = 0 ;i <currentMarkers.length;i++){
+        currentMarkers[i].remove();
+      }
+
+      console.log(plantedTrees);
+
+    }
+
+  </script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -10,7 +10,9 @@ body{
     overflow:hidden;
     z-index:-1;
 }
-
+#title{
+  margin-left: 50px;
+}
 #exampleModal{
   z-index: 1;
 }
@@ -208,4 +210,12 @@ dt{
   vertical-align: center;
   border-radius: 20px;
   font-family: 'Raleway',sans-serif; font-size: 20px; font-weight: 800; line-height: 30px;
+}
+
+.tree {
+  width: 50px;
+  height: 100px;
+}
+.modal-body .container .row{
+  margin-bottom: 20px;
 }

@@ -9,13 +9,51 @@
   <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
   <link href='css/style_act.css' rel='stylesheet' />
-
-
-
-  <title>NASA Space Apps challenge</title>
-
+  <title>AcTree</title>
+  <link rel="icon" href="./img/logo.png">
 </head>
 <body>
+
+  <div class="modal fade" id="LoadingScreen" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id ="logoModal">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 text-center align-center">
+                <div class="logo2">
+                  <img src="./img/logo.png"  style="width:100%;height:100%;" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="impactModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id = "resizer">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title">My impact</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div id="impactChart" class="col-12">
+                <canvas height="250" id="myImpactChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="modal fade" id="DoItModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -148,6 +186,7 @@
       <div class="container full-page ">
         <div class="row margin-children">
           <div class="card">
+
             <h3 class="card-header text-center cardhead">Map Display mode</h3>
             <div class="card-body card">
               <div class="row" id="menu2">
@@ -225,7 +264,7 @@
         </div>
         <div class="row margin-children">
           <div class="col-12">
-            <button  id = "show_hide_graph3" class="btn btn-info btn-full" type="button" name="button"> <i class='fa fa-smile-o'></i> Show My Impact </button>
+            <button  id = "show_hide_graph3" class="btn btn-info btn-full" data-toggle="modal" data-target="#impactModal"  type="button" name="button"> <i class='fa fa-smile-o'></i> Show My Impact </button>
           </div>
         </div>
 
@@ -255,6 +294,7 @@
           </div>
         </div>
 
+
       </div>
     </div>
 
@@ -273,15 +313,15 @@
   <script>
   var map= null;
   function init_map(){
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
-  map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-6.9273026,27.9693414],
-    zoom: 2
-  });
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
+    map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-6.9273026,27.9693414],
+      zoom: 2
+    });
   }
-   init_map();
+  init_map();
   var ctx = document.getElementById('myChart').getContext('2d');
 
 
@@ -333,7 +373,7 @@ function setImage(name){
 }
 
 function modalDoItOppening(){
-  document.getElementById("treecount").innerHTML = plantedTrees.length;
+  document.getElementById("treecount").innerHTML = "I can Finance planting <strong>"+plantedTrees.length+ " </strong> Trees with <strong>~$"+ 15*plantedTrees.length+"</strong>" ;
 }
 
 function fillchart2(){
@@ -392,6 +432,7 @@ function fillchart2(){
       }
     });
   });}
+
 
 
   function fillchart(){
@@ -476,12 +517,6 @@ function fillchart2(){
       inputs[i].onclick = switchLayer;
     }
 
-    document.getElementById("close2").onclick = function() {execute4()};
-
-    function execute4() {
-      document.getElementById("infoBox2").style.visibility = "hidden";
-    }
-
     </script>
     <script>
     document.getElementById("locate").onclick = function() {getLocation()};
@@ -490,14 +525,104 @@ function fillchart2(){
     document.getElementById("show_hide_deathrate").onclick = function() {show_hide_deathrate()};
     document.getElementById("show_hide_graph").onclick = function() {show_hide_graph()};
     document.getElementById("show_hide_graph2").onclick = function() {show_hide_graph2()};
+    document.getElementById("show_hide_graph3").onclick = function() {showMyImpact()};
     document.getElementById("plant").onclick = function(){show_image()};
-
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(showPosition);
       } else {
         alert("Geolocation is not supported by this browser.");
       }
+    }
+    function showMyImpact(){
+      var yearx=[];
+      var concx=[];
+      var concImpact=[];
+      grams = 2*100000000/3000000000;
+      a = 2.6;
+      b = 395.0;
+      $.getJSON('global-cocentration.json', function(data){
+        for (var i = 0;i<data.length;i++){
+          yearx.push(data[i]["Year"]);
+          concx.push(data[i]["CO2 concentrations"]);
+          temp_year = data[i]["Year"];
+          temp_val = data[i]["CO2 concentrations"];
+          concImpact.push(data[i]["CO2 concentrations"]);
+        }
+
+        for (var i = 1;i<17;i++){
+          rand = randInt(15)/10;
+          console.log(rand);
+          yearx.push(2018+i);
+          concx.push((i+5)*a +b+rand);
+          if (2018 + i <=2020){
+            concImpact.push((i+5)*a +b+rand);
+          }else{
+            concImpact.push((i+5)*a +b +rand - grams*(i-2)*(i-2));
+          }
+        }
+        console.log(yearx.slice(7));
+        var ctx2 = document.getElementById('myImpactChart').getContext('2d');
+        var mChart2 = new Chart(ctx2, {
+          type: 'line',
+          data: {
+            labels: yearx,
+            datasets: [{
+              label: 'Your CO2 impact forcast',
+              data: [null,null,null,null,null,null,null].concat(concImpact.slice(7)),
+              backgroundColor: [
+                'rgba(255, 162, 235, 0.2)',
+                'rgba(255, 162, 235, 0.2)',
+                'rgba(255, 162, 235, 0.2)',
+                'rgba(255, 162, 235, 0.2)',
+                'rgba(255, 162, 235, 0.2)',
+                'rgba(255, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255, 50, 235, 1)',
+                'rgba(255, 50, 235, 1)',
+                'rgba(255, 50, 235, 1)',
+                'rgba(255, 50, 235, 1)',
+                'rgba(255, 50, 235, 1)',
+                'rgba(255, 50, 235, 1)'
+              ],
+              borderWidth: 1
+            },{
+              label: 'CO2 Concentration forcast',
+              data: concx,
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            hover : {
+              mode:'nearest'
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: false
+                }
+              }]
+            }
+          }
+        });
+});
     }
     function show_hide_graph(){
       if (chart_visible){
@@ -887,7 +1012,7 @@ function fillchart2(){
     }
 
     function treesFromCookies(long,lati,rande,nume){
-        map.loadImage(
+      map.loadImage(
         './img/tree'+nume.toString()+'.png',
         function (error, image) {
           if (error) throw error;
@@ -927,31 +1052,40 @@ function fillchart2(){
       );
     }
 
-  </script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-  <script src="./js/jquery.cookie.js"></script>
-  <script>
-  function save(){
-    $.cookie('name', JSON.stringify(plantedTrees));
-    console.log("saved");
-    alert("All saved!");
-  }
-  function load(){
-    plantedTrees= JSON.parse($.cookie('name'));
-    console.log("loaded");
-    console.log(plantedTrees);
-    for (var e = 0;e<plantedTrees.length;e++){
-      long  =  plantedTrees[e][2];
-      lati  =  plantedTrees[e][3];
-      rande =  plantedTrees[e][0];
-      nume  =  plantedTrees[e][1];
-      treesFromCookies(long,lati,rande,nume)
-    }
-  }
-  </script>
-  <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('#LoadingScreen').modal('show');
 
-</body>
-</html>
+    setTimeout(function() {
+        $('#LoadingScreen').modal('hide');
+    }, 300000);
+  });
+
+
+    function save(){
+      $.cookie('name', JSON.stringify(plantedTrees));
+      console.log("saved");
+      alert("All saved!");
+    }
+    function load(){
+      plantedTrees= JSON.parse($.cookie('name'));
+      console.log("loaded");
+      console.log(plantedTrees);
+      for (var e = 0;e<plantedTrees.length;e++){
+        long  =  plantedTrees[e][2];
+        lati  =  plantedTrees[e][3];
+        rande =  plantedTrees[e][0];
+        nume  =  plantedTrees[e][1];
+        treesFromCookies(long,lati,rande,nume)
+      }
+    }
+    </script>
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    </body>
+    </html>

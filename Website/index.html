@@ -67,15 +67,11 @@
         <div class="modal-body">
           <div class="container">
             <div class="row">
-              <div class="col-6 text-right">
-                <span>I can Finance planting</span>
+
+              <div class="col-12 text-center align-center">
+                <span id = "treecount"></span>
               </div>
-              <div class="col-1 ">
-                <strong id = "treecount"></strong>
-              </div>
-              <div class="col-5 ">
-                <span>Trees</span>
-              </div>
+
 
             </div>
             <div class="row">
@@ -150,6 +146,17 @@
           <div class="container">
             <div class="row">
               <div class="col-4 align-center text-center">
+                <strong>Spruce</strong>
+              </div>
+              <div class="col-4 align-center text-center">
+                <strong>Maple</strong>
+              </div>
+              <div class="col-4 align-center text-center">
+                <strong>Cedar</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 align-center text-center">
                 <button onclick="setImage(10)" type="button" class="btn" name="button"> <img src="./img/tree10.png" class="tree"> </button>
               </div>
               <div class="col-4 align-center text-center">
@@ -157,6 +164,19 @@
               </div>
               <div class="col-4 align-center text-center">
                 <button onclick="setImage(30)" type="button" class="btn" name="button"> <img src="./img/tree30.png" class="tree"> </button>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-4 align-center text-center">
+                <strong>Eucalyptus</strong>
+              </div>
+              <div class="col-4 align-center text-center">
+                <strong>Elm</strong>
+              </div>
+              <div class="col-4 align-center text-center">
+                <strong>Pine</strong>
               </div>
             </div>
             <div class="row">
@@ -621,7 +641,7 @@ function fillchart2(){
             }
           }
         });
-});
+      });
     }
     function show_hide_graph(){
       if (chart_visible){
@@ -1058,10 +1078,10 @@ function fillchart2(){
     $(document).ready(function(){
       $('#LoadingScreen').modal('show');
 
-    setTimeout(function() {
+      setTimeout(function() {
         $('#LoadingScreen').modal('hide');
-    }, 300000);
-  });
+      }, 300000);
+    });
 
 
     function save(){
@@ -1086,5 +1106,5 @@ function fillchart2(){
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    </body>
-    </html>
+  </body>
+  </html>

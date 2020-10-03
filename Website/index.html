@@ -1,1110 +1,485 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="zxx">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta charset="UTF-8">
-  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-  <link href='css/style.css' rel='stylesheet' />
-  <title>AcTree</title>
-  <link rel="icon" href="./img/logo.png">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>AcTree | Description</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="./img/logo.png">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/progressbar_barfiller.css">
+    <link rel="stylesheet" href="assets/css/gijgo.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/animated-headline.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-
-  <div class="modal fade" id="LoadingScreen" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" id ="logoModal">
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-12 text-center align-center">
-                <div class="logo2">
-                  <img src="./img/logo.png"  style="width:100%;height:100%;" alt="">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="img/loder.png" alt="">
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+    <!-- Preloader Start-->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header_area">
+            <div class="main-header">
+             <div class="header-bottom header-sticky">
+                <!-- Logo -->
+                <div class="logo" style="margin-top: 15px;">
+                    <a href="index.html"><img height="50" src="img/logolong.png" alt=""></a>
 
-  <div class="modal fade" id="impactModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" id = "resizer">
-        <div class="modal-header">
-          <h5 class="modal-title" id="title">Global Impact</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div id="impactChart" class="col-12">
-                <canvas height="250" id="myImpactChart"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="DoItModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="title">DO IT</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-
-              <div class="col-12 text-center align-center">
-                <span id = "treecount"></span>
-              </div>
-
-
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button class="btn btn-success btn-full" type="button" data-dismiss"modal" name="button"><i class="fa fa-leaf"></i> Plant them all!</button>
-              </div>
-            </div>
-            <div class="row">
-
-              <div class="col-12 text-center">
-                <span>Help me plant the trees</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button class="btn btn-warning btn-full" type="button" data-dismiss"modal" name="button"> <i class="fa fa-ticket"></i> Get Code</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="DonateModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="title">Donate</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-6 text-right">
-                <span>Amount Raised</span>
-              </div>
-              <div class="col-6 ">
-                <strong id = "raised">$1567.32</strong>
-              </div>
-              <div class="col-12 text-center">
-                <span>to Plant <strong id = "treesCount">102</strong> Tree </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <button class="btn btn-primary btn-full" type="button" name="button"> <i class="fa fa-paypal"></i> Paypal</button>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-primary btn-full" type="button" name="button"> <i class="fa fa-money"></i> Money</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="TreeModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="title">Select a Tree</h5>
-          <button onclick="setImage(0)" type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-4 align-center text-center">
-                <strong>Spruce</strong>
-              </div>
-              <div class="col-4 align-center text-center">
-                <strong>Maple</strong>
-              </div>
-              <div class="col-4 align-center text-center">
-                <strong>Cedar</strong>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(10)" type="button" class="btn" name="button"> <img src="./img/tree10.png" class="tree"> </button>
-              </div>
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(20)" type="button" class="btn" name="button"> <img src="./img/tree20.png" class="tree"> </button>
-              </div>
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(30)" type="button" class="btn" name="button"> <img src="./img/tree30.png" class="tree"> </button>
-              </div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-4 align-center text-center">
-                <strong>Eucalyptus</strong>
-              </div>
-              <div class="col-4 align-center text-center">
-                <strong>Elm</strong>
-              </div>
-              <div class="col-4 align-center text-center">
-                <strong>Pine</strong>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(40)" type="button" class="btn" name="button"> <img src="./img/tree40.png" class="tree"> </button>
-              </div>
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(50)" type="button" class="btn" name="button"> <img src="./img/tree50.png" class="tree"> </button>
-              </div>
-              <div class="col-4 align-center text-center">
-                <button onclick="setImage(60)" type="button" class="btn" name="button"> <img src="./img/tree60.png" class="tree"> </button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="header-div">
-    <div class="left-menu" id="menu">
-      <div class="container full-page ">
-        <div class="row margin-children">
-          <div class="card">
-
-            <h3 class="card-header text-center cardhead">Map Display mode</h3>
-            <div class="card-body card">
-              <div class="row" id="menu2">
-                <div class="col-4">
-                  <input class="col center-radio" id="streets-v11" type="radio" name="rtoggle" value="streets" checked="checked"/>
-                  <label class="col text-center" for="streets-v11">streets</label>
                 </div>
-                <div class="col-4">
-                  <input class="col center-radio" id="light-v10" type="radio" name="rtoggle" value="light" />
-                  <label class="col text-center"for="light-v10">light</label>
+                <div class="header-left  d-flex f-right align-items-center">
+                    <!-- Main-menu -->
+                    <div class="main-menu f-right d-none d-lg-block">
+                        <nav>
+                            <ul id="navigation">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- left Btn -->
+                    <div class="header-right-btn f-right d-none d-lg-block  ml-30">
+                        <a href="./AcTree.html" class="header-btn">LET'S GO!</a>
+                    </div>
                 </div>
-                <div class="col-4">
-                  <input class="col center-radio" id="dark-v10" type="radio" name="rtoggle" value="dark" />
-                  <label class="col text-center"for="dark-v10">dark</label>
+                <!-- Mobile Menu -->
+                <div class="col-12">
+                    <div class="mobile_menu d-block d-lg-none"></div>
                 </div>
-              </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+<main>
+    <!--? slider Area Start-->
+    <div class="slider-area  position-relative ">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider position-relative hero-overly slider-height  d-flex align-items-center" data-background="img/planter.jpg">
+                <div class="container">
+                 <div class="row">
+                     <div class="col-xl-6 col-lg-6">
+                        <div class="hero-caption">
+                            <h1 data-animation="fadeInLeft" data-delay=".4s">Take a step and let the future immortalise your actions</h1>
+                            <p data-animation="fadeInLeft" data-delay=".6s">Petite DescriptionPetite DescriptionPetite DescriptionPetite
+                              DescriptionPetite DescriptionPetite DescriptionPetite Description
+                            DescriptionPetite DescriptionPetite DescriptionPetite Description</p>
+                            <!-- Hero Btn -->
+                            <a href="#" class="btn"  data-animation="fadeInLeft" data-delay=".8s" >lien pour qlq chose</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Left img -->
+            <div class="hero-img">
+                <img src="img/planters.jpeg" alt=""  data-animation="fadeInRight" data-transition-duration="5s">
+            </div>
+        </div>
+
+</div>
+</div>
+<!-- slider Area End-->
+<!--? Clients Offers Start -->
+<div class="clients-area section-padding40">
+    <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-50">
+                <div class="section-tittle text-center">
+                    <h2>Data Visualisation</h2>
             </div>
           </div>
-
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".2s" >
+                    <div class="offers-img">
+                        <img src="assets/img/gallery/offers1.png" alt="">
+                    </div>
+                    <div class="offers-cap">
+                        <h3><a href="services.html">Graph 1</a></h3>
+                        <p>description du graph description du graph description du graph description du graph description du graph description du graph + source</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".4s">
+                    <div class="offers-img">
+                        <img src="assets/img/gallery/offers2.png" alt="">
+                    </div>
+                    <div class="offers-cap">
+                        <h3><a href="services.html">Graph 2</a></h3>
+                        <p>description du graph description du graph description du graph description du graph description du graph description du graph + source</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-offers mb-50 wow fadeInUp" data-wow-delay=".6s">
+                    <div class="offers-img">
+                        <img src="assets/img/gallery/offers3.png" alt="">
+                    </div>
+                    <div class="offers-cap">
+                        <h3><a href="services.html">Graph 3</a></h3>
+                        <p>description du graph description du graph description du graph description du graph description du graph description du graph + source</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row margin-children">
-          <div class="col-12">
-            <p class="btn-full align-center text-center"><i class='fa fa-map' style="color:#17a2b8;"></i> MAP</p>
-          </div>
-          <div class="col-6 align-center text-center">
-            <button id="locate" class="btn btn-success btn-full" type="button" name="button"> <i class="fa fa-map-marker"></i> Locate Me!</button>
-          </div>
-          <div class="col-6 align-center text-center">
-            <button id = "reset" class="btn btn-warning btn-full" type="button" name="button"> <i class="fa fa-refresh"></i> Reset!</button>
-          </div>
+    </div>
+</div>
+<!-- Clients Offers End -->
+
+<!--? Services Area Start -->
+<section class="categories-area section-padding40">
+    <div class="container">
+        <!-- section Tittle -->
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9">
+                <div class="section-tittle text-center mb-60">
+                    <h2>Our Impact</h2>
+                    <p>we are aiming to <strong>Take Action</strong> to <strong>Make an Impact</strong> on : <strong>(1,2,3,4 par importance décroissante,image est simple a changer ( proposez si vous voulez))</strong> </p>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                    <div class="cat-icon">
 
-
-        <div class="row margin-children">
-          <div class="col-12">
-            <p class="btn-full align-center text-center"><i class='fa fa-eye' style="color:red;"></i> VIEW DATA</p>
-          </div>
-          <div class="col-6">
-            <button id = "show_hide" class="btn btn-primary btn-full" type="button" name="button"> CO2 Emission</button>
-          </div>
-          <div class="col-6">
-            <button id = "show_hide_deathrate" class="btn btn-primary btn-full" type="button" name="button"> Death rate by pollution</button>
-          </div>
+                        <img src="img/icon/services1.svg" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                        <h5>impact 1</h5>
+                        <p>Comment Comment Comment Comment Comment Comment Comment Comment Comment </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                    <div class="cat-icon">
+                        <img src="img/icon/services2.svg" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                        <h5>impact 2</h5>
+                        <p>Comment Comment Comment Comment Comment Comment Comment Comment Comment </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                    <div class="cat-icon">
+                        <img src="img/icon/services3.svg" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                        <h5>impact 3</h5>
+                        <p>Comment Comment Comment Comment Comment Comment Comment Comment Comment </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                    <div class="cat-icon">
+                        <img src="img/icon/services4.svg" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                        <h5>impact 3</h5>
+                        <p>Comment Comment Comment Comment Comment Comment Comment Comment Comment </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row margin-children" id="changer">
-          <div class="col-6">
-            <button  id = "show_hide_graph" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> Emission Graph</button>
-          </div>
-          <div class="col-6">
-            <button  id = "show_hide_graph2" class="btn btn-secondary btn-full" type="button" name="button"> <i class='fa fa-line-chart'></i> CO2 Concentration</button>
-          </div>
+    </div>
+</section>
+<!--? Services Area End -->
+<!--? video_start -->
+<div class="video-area section-bg2 d-flex align-items-center"  data-background="img/logolong.png">
+    <div class="container">
+        <div class="video-wrap position-relative">
+            <!-- Video icon -->
+            <div class="video-icon" >
+                <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i class="fas fa-play"></i></a>
+            </div>
         </div>
-        <div id= "chart_div" class="row margin-children chart">
-          <div class="col-12">
-            <select class="form-control" name="country" class="" id="country_selector">
+    </div>
+</div>
+<!-- video_end -->
+<!--? instagram-social start -->
 
-            </select>
-          </div>
-          <div id="chartContainer" class="col-12">
-            <canvas id="myChart" height="300px"></canvas>
-          </div>
+<section class="categories-area section-padding40">
+    <div class="container">
+        <!-- section Tittle -->
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9">
+                <div class="section-tittle text-center mb-60">
+                    <h2>Our Team</h2>
+                </div>
+            </div>
         </div>
-
-        <div class="row margin-children">
-          <div class="col-12">
-            <p class="btn-full align-center text-center"><i class='fa fa-globe' style="color:green;"></i> TAKE ACTION</p>
-          </div>
-          <div class="col-6">
-
-            <button   data-toggle="modal" data-target="#TreeModal" class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Select a Tree </button>
-          </div>
-          <div class="col-6">
-            <button  id = "plant"  class="btn btn-success btn-full" type="button" name="button"> <i class='fa fa-envira'></i> Plant </button>
-          </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                        <h5>Prenom NOM</h5>
+                        <p>Branch Engineer</p>
+                        <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                      <h5>Prenom NOM</h5>
+                      <p>Branch Engineer</p>
+                      <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                      <h5>Prenom NOM</h5>
+                      <p>Branch Engineer</p>
+                      <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                      <h5>Prenom NOM</h5>
+                      <p>Branch Engineer</p>
+                      <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                      <h5>Prenom NOM</h5>
+                      <p>Branch Engineer</p>
+                      <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 align-center text-center">
+                <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                    <div class="cat-icon">
+                        <img src="./img/logo.png" width="58" height="58" class="rounded mx-auto" alt="">
+                    </div>
+                    <div class="cat-cap">
+                      <h5>Prenom NOM</h5>
+                      <p>Branch Engineer</p>
+                      <p>Role as a Member</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row margin-children">
-          <div class="col-12">
-            <button  id = "show_hide_graph3" class="btn btn-info btn-full" data-toggle="modal" data-target="#impactModal"  type="button" name="button"> <i class='fa fa-globe'></i> Show global Impact </button>
-          </div>
-        </div>
+    </div>
+</section>
 
-        <div class="row margin-children">
-          <div class="col-12">
-            <p class="btn-full align-center text-center"><i class='fa fa-globe' style="color:green;"></i> MAKE IT REAL</p>
+<section class="instagram-area fix pb-bottom">
+    <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
+              <div class="section-tittle text-center mb-10">
+                  <h2>How Does It Work</h2>
+              </div>
           </div>
-          <div class="col-6">
-            <button data-toggle="modal" data-target="#DoItModal" onclick="modalDoItOppening()" class="btn btn-primary btn-full" type="button" name="button"> <i class='fa fa-check-square-o'></i> DO IT!</button>
-          </div>
-          <div class="col-6">
-            <button data-toggle="modal" data-target="#DonateModal" class="btn btn-warning btn-full" type="button" name="button"> <i class='fa fa-handshake-o'></i> Fund IT!</button>
-          </div>
-        </div>
-
-        <div class="row margin-children">
-          <div class="col-12">
-            <p class="btn-full align-center text-center"><i class='fa fa-save' style="color:purple;"></i> SAVE IT </p>
-          </div>
-          <div class="col-6">
-
-            <button class="btn btn-full" onClick="save()" type="button" name="button"> <i class="fa fa-upload"></i> SAVE</button>
-          </div>
-          <div class="col-6">
-            <button class="btn btn-full" onclick="load()" type="button" name="button"> <i class="fa fa-download"></i> LOAD</button>
-          </div>
-        </div>
-
-
       </div>
+
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
+                <div class="section-tittle text-center mb-20">
+                    <h1>FUNDING</h1>
+                </div>
+                <div class="text-center">
+                  <p>FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING
+                    EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH FUNDING EXPAINING PARAGRAPH </p>
+                </div>
+                <div class="section-tittle text-center mb-50">
+                    <h1>SITE</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="single-instagram mb-30">
+                    <img src="./img/planters.jpeg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="single-instagram">
+                    <img src="./img/planters.jpeg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="single-instagram mb-30">
+                    <img src="./img/planters.jpeg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="single-instagram">
+                    <img src="./img/planters.jpeg" alt="">
+                </div>
+            </div>
+
+        </div>
     </div>
+</section>
+<!-- instagram-social End -->
+</main>
+<footer>
+    <div class="footer-wrapper section-bg2 pl-100"   data-background="img/planter.jpg">
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6" id = "back1">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo mb-35">
+                                    <a href="index.html"> <strong style="font-size:50px;">AcTree</strong> </a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>take a step and let the future immortalise your actions</p>
+                                    </div>
+                                    <ul class="mb-40">
+                                        <li class="number"> <a href="tel:+212637958106">(212) 063 795-8106</a></li>
+                                        <li class="number2"><a href="tel:+212633673904">(212) 063 367-3904</a></li>
+                                    </ul>
+                                </div>
+                                <!-- social
+                                <div class="footer-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6" id = "back2">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Our solutions</h4>
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer-bottom area -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-border">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right text-right">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
 
-    <div id="mapHolder" class="right-map">
-      <div class='map1' id='map'></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Footer End-->
+          <!-- Map -->
+          <div class="map-area">
+        </div>
     </div>
-  </div>
-
-
-
-
-
-
-  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js'></script>
-  <script>
-  var map= null;
-  function init_map(){
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uYXNzYW5pcyIsImEiOiJja2Y5cjA3MnUwb3J6MnFxZ25hYmF6MzFsIn0.rqaLhUVUaNnzwciOF9QxVQ';
-    map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-6.9273026,27.9693414],
-      zoom: 2
-    });
-  }
-  init_map();
-  var ctx = document.getElementById('myChart').getContext('2d');
-
-
-
-  var currentMarkers=[];
-  var lng = 0;
-  var lat = 0;
-  var num = 0;
-  map.on('click',  function (e) {
-
-    lng = e.lngLat.wrap()["lng"];
-    lat = e.lngLat.wrap()["lat"];
-    if (currentMarkers!==null) {
-      for (var i = currentMarkers.length - 1; i >= 0; i--) {
-        currentMarkers[i].remove();
-      }
-    }
-
-
-    var markers = new mapboxgl.Marker()
-    .setLngLat([lng, lat])
-    .addTo(map);
-    currentMarkers.push(markers);
-  });
-
-
-
-
-</script>
-
-<script>
-
-var source_aded = false;
-var source_aded_deathrate= false;
-var layerList = document.getElementById('menu');
-var inputs = layerList.getElementsByTagName('input');
-var view = true;
-var view_deathrate =true;
-var sel = document.getElementById('country_selector');
-chart_visible=false;
-var selectedTree= 0;
-var plantedTrees = [];
-sel.onchange = function(){fillchart()};
-
-
-
-function setImage(name){
-  selectedTree = name;
-}
-
-function modalDoItOppening(){
-  document.getElementById("treecount").innerHTML = "I can Finance planting <strong>"+plantedTrees.length+ " </strong> Trees with <strong>~$"+ 15*plantedTrees.length+"</strong>" ;
-}
-
-function fillchart2(){
-  var year=[];
-  var conc=[];
-  document.getElementById('country_selector').style.display = "none";
-  $.getJSON('global-cocentration.json', function(data){
-    for (var i = 0;i<data.length;i++){
-      year.push(data[i]["Year"]);
-      conc.push(data[i]["CO2 concentrations"]);
-    }
-
-
-
-
-    document.getElementById("chartContainer").innerHTML = '&nbsp;';
-    document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var mChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: year,
-        datasets: [{
-          label: 'CO2 Concentration',
-          data: conc,
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)'
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(54, 162, 235, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        hover : {
-          mode:'nearest'
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: false
-            }
-          }]
-        }
-      }
-    });
-  });}
-
-
-
-  function fillchart(){
-    document.getElementById('country_selector').style.display = "block";
-    var year=[];
-    var co2=[];
-    var temp = [];
-    var city = "";
-    $.getJSON('co2.geojson', function(data){
-      for (var i = 0;i<data.features.length;i++){
-        var key = data.features[i]["properties"]["Entity"];
-
-        if (key == sel.value){
-          temp.push(data.features[i]["properties"]);
-        }
-
-      }
-
-      temp = temp.slice(Math.max(temp.length - 6, 1));
-      for (var i = 0;i<temp.length;i++){
-        year.push(temp[i]["Year"]);
-        co2.push(temp[i]["CO2-emissions"]);
-      }
-
-
-
-      document.getElementById("chartContainer").innerHTML = '&nbsp;';
-      document.getElementById("chartContainer").innerHTML = "<canvas id='myChart' height='300px'></canvas>";
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var mChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: year,
-          datasets: [{
-            label: 'CO2 emissions',
-            data: co2,
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(54, 162, 235, 0.2)'
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(54, 162, 235, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          hover : {
-            mode:'nearest'
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          }
-        }
-      });
-    });}
-
-    function switchLayer(layer) {
-      var layerId = layer.target.id;
-      map.setStyle('mapbox://styles/mapbox/' + layerId);
-      source_aded = false;
-      source_aded_deathrate=false;
-      document.getElementById("show_hide").innerHTML =" CO2 Emission";
-      document.getElementById("show_hide").classList = "btn btn-primary btn-full"
-      view = true;
-    }
-
-    for (var i = 0; i < inputs.length; i++) {
-      inputs[i].onclick = switchLayer;
-    }
-
-    </script>
-    <script>
-    document.getElementById("locate").onclick = function() {getLocation()};
-    document.getElementById("reset").onclick = function() {reset()};
-    document.getElementById("show_hide").onclick = function() {show_hide()};
-    document.getElementById("show_hide_deathrate").onclick = function() {show_hide_deathrate()};
-    document.getElementById("show_hide_graph").onclick = function() {show_hide_graph()};
-    document.getElementById("show_hide_graph2").onclick = function() {show_hide_graph2()};
-    document.getElementById("show_hide_graph3").onclick = function() {showMyImpact()};
-    document.getElementById("plant").onclick = function(){show_image()};
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-    function showMyImpact(){
-      var yearx=[];
-      var concx=[];
-      var concImpact=[];
-      grams = 2*100000000/3000000000;
-      a = 2.6;
-      b = 395.0;
-      $.getJSON('global-cocentration.json', function(data){
-        for (var i = 0;i<data.length;i++){
-          yearx.push(data[i]["Year"]);
-          concx.push(data[i]["CO2 concentrations"]);
-          temp_year = data[i]["Year"];
-          temp_val = data[i]["CO2 concentrations"];
-          concImpact.push(data[i]["CO2 concentrations"]);
-        }
-
-        for (var i = 1;i<17;i++){
-          rand = randInt(15)/10;
-          console.log(rand);
-          yearx.push(2018+i);
-          concx.push((i+5)*a +b+rand);
-          if (2018 + i <=2020){
-            concImpact.push((i+5)*a +b+rand);
-          }else{
-            concImpact.push((i+5)*a +b +rand - grams*(i-2)*(i-2));
-          }
-        }
-        console.log(yearx.slice(7));
-        var ctx2 = document.getElementById('myImpactChart').getContext('2d');
-        var mChart2 = new Chart(ctx2, {
-          type: 'line',
-          data: {
-            labels: yearx,
-            datasets: [{
-              label: 'Our global CO2 impact forcast',
-              data: [null,null,null,null,null,null,null].concat(concImpact.slice(7)),
-              backgroundColor: [
-                'rgba(255, 162, 235, 0.2)',
-                'rgba(255, 162, 235, 0.2)',
-                'rgba(255, 162, 235, 0.2)',
-                'rgba(255, 162, 235, 0.2)',
-                'rgba(255, 162, 235, 0.2)',
-                'rgba(255, 162, 235, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 50, 235, 1)',
-                'rgba(255, 50, 235, 1)',
-                'rgba(255, 50, 235, 1)',
-                'rgba(255, 50, 235, 1)',
-                'rgba(255, 50, 235, 1)',
-                'rgba(255, 50, 235, 1)'
-              ],
-              borderWidth: 1
-            },{
-              label: 'CO2 Concentration forcast',
-              data: concx,
-              backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)'
-              ],
-              borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(54, 162, 235, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            hover : {
-              mode:'nearest'
-            },
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: false
-                }
-              }]
-            }
-          }
-        });
-      });
-    }
-    function show_hide_graph(){
-      if (chart_visible){
-        document.getElementById("chart_div").style.display = "none";
-        chart_visible = false;
-      }else{
-
-        document.getElementById("chart_div").style.display = "block";
-        chart_visible = true;
-
-      }
-      fill_selector();
-      fillchart();
-    }
-    function show_hide_graph2(){
-      if (chart_visible){
-        document.getElementById("chart_div").style.display = "none";
-        chart_visible = false;
-      }else{
-        document.getElementById("chart_div").style.display = "block";
-        chart_visible = true;
-
-      }
-      fillchart2();
-    }
-
-
-    var country_list  = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', "Cote d'Ivoire", 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of Congo', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Faeroe Islands', 'Falkland Islands', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks and Caicos Islands', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'];
-
-    function fill_selector(){
-      var sel = document.getElementById('country_selector');
-      for(var i = 0; i < country_list.length; i++) {
-        var opt = document.createElement('option');
-        opt.innerHTML = country_list[i];
-        opt.value = country_list[i];
-        sel.appendChild(opt);
-      }
-    }
-
-    function showPosition(position) {
-      map.flyTo({
-        center: [position.coords.longitude,position.coords.latitude],
-        essential: true,
-        zoom : 17
-      });
-
-    }
-
-    function reset(){
-      map.flyTo({
-        center: [-6.9273026,27.9693414],
-        zoom: 2,
-        essential: true,
-      });
-    }
-
-    function show_hide(){
-
-      if (view) {
-        document.getElementById("show_hide").classList = "btn btn-danger btn-full"
-        view = false;
-        show_pollution();
-      }else{
-        document.getElementById("show_hide").classList = "btn btn-primary btn-full"
-        view = true;
-        remove_pollution();
-      }
-    }
-    function show_hide_deathrate(){
-
-      if (view_deathrate) {
-        document.getElementById("show_hide_deathrate").classList = "btn btn-danger btn-full"
-        view_deathrate = false;
-        show_deatrate();
-      }else{
-        document.getElementById("show_hide_deathrate").classList = "btn btn-primary btn-full"
-        view_deathrate = true;
-        remve_deatrate();
-      }
-    }
-    function remove_pollution(){
-      map.setLayoutProperty('pollution', 'visibility', 'none');
-      //map.removeLayer("pollution");
-    }
-
-    function remve_deatrate(){
-      map.setLayoutProperty('deathrate', 'visibility', 'none');
-      //map.removeLayer("pollution");
-    }
-
-    function show_pollution(){
-      if (source_aded){
-        map.setLayoutProperty('pollution', 'visibility', 'visible');
-      }
-      else{
-        initsource();
-        source_aded = true;
-      }
-
-    }
-
-    function show_deatrate(){
-      if (source_aded_deathrate){
-        map.setLayoutProperty('deathrate', 'visibility', 'visible');
-      }
-      else{
-        initsource2();
-        source_aded_deathrate = true;
-      }
-
-    }
-    function initsource2(){
-      map.addSource('data2', {
-        type: 'geojson',
-        data: './death-rates-total-air-pollution.geojson'
-      });
-      map.addLayer({
-        id: 'deathrate',
-        type: 'heatmap',
-        source: 'data2',
-        maxzoom: 15,
-        paint: {
-          // increase weight as diameter breast height increases
-          'heatmap-weight': {
-            property: 'Deaths - Air pollution - Sex: Both - Age: Age-standardized (Rate)',
-            type: 'exponential',
-            stops: [
-              [1, 0],
-              [62, 1]
-            ]
-          },
-          // increase intensity as zoom level increases
-          'heatmap-intensity': {
-            stops: [
-              [11, 1],
-              [15, 3]
-            ]
-          },
-          // assign color values be applied to points depending on their density
-          'heatmap-color': [
-            'interpolate',
-            ['linear'],
-            ['heatmap-density'],
-            0, 'rgba(236,12,3,0.1)',
-            0.2, 'rgb(208,12,3)',
-            0.4, 'rgb(166,12,3)',
-            0.6, 'rgb(103,12,3)',
-            0.8, 'rgb(28,12,3)'
-          ],
-          // increase radius as zoom increases
-          'heatmap-radius': {
-            stops: [
-              [21, 25],
-              [25, 30]
-            ]
-          },
-          // decrease opacity to transition into the circle layer
-          'heatmap-opacity': {
-            default: 1,
-            stops: [
-              [14, 1],
-              [15, 0]
-            ]
-          },
-        }
-      }, 'waterway-label');
-      map.addLayer({
-        id: 'trees-point2',
-        type: 'circle',
-        source: 'data',
-        minzoom: 14,
-        paint: {
-          // increase the radius of the circle as the zoom level and BANDWIDTH value increases
-          'circle-radius': {
-            property: 'CO2-emissions',
-            type: 'exponential',
-            stops: [
-              [{ zoom: 15, value: 1 }, 25],
-              [{ zoom: 15, value: 62 }, 20],
-              [{ zoom: 22, value: 1 }, 30],
-              [{ zoom: 22, value: 62 }, 60],
-            ]
-          },
-          'circle-color': {
-            property: 'CO2-emissions',
-            type: 'exponential',
-            stops: [
-              [0, 'rgb(236,222,239)'],
-              [0.10, 'rgb(236,222,239)'],
-              [0.20, 'rgb(208,209,230)'],
-              [0.30, 'rgb(166,189,219)'],
-              [0.50, 'rgb(103,169,207)'],
-              [0.70, 'rgb(28,144,153)'],
-              [0.90, 'rgb(1,108,89)']
-            ]
-          },
-          'circle-stroke-color': 'white',
-          'circle-stroke-width': 1,
-          'circle-opacity': {
-            stops: [
-              [14, 0],
-              [15, 1]
-            ]
-          }
-        }
-      }, 'waterway-label');
-
-      map.on('click', 'trees-point2', function(e) {
-        new mapboxgl.Popup()
-        .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML('<b>Deaths:</b> ' + e.features[0].properties.dbh)
-        .addTo(map);
-      });
-
-    }
-
-
-    function initsource(){
-      map.addSource('data', {
-        type: 'geojson',
-        data: './co2.geojson'
-      });
-      map.addLayer({
-        id: 'pollution',
-        type: 'heatmap',
-        source: 'data',
-        maxzoom: 15,
-        paint: {
-          // increase weight as diameter breast height increases
-          'heatmap-weight': {
-            property: 'CO2-emissions',
-            type: 'exponential',
-            stops: [
-              [1, 0],
-              [62, 1]
-            ]
-          },
-          // increase intensity as zoom level increases
-          'heatmap-intensity': {
-            stops: [
-              [11, 1],
-              [15, 3]
-            ]
-          },
-          // assign color values be applied to points depending on their density
-          'heatmap-color': [
-            'interpolate',
-            ['linear'],
-            ['heatmap-density'],
-            0, 'rgba(236,222,239,0)',
-            0.2, 'rgb(208,209,230)',
-            0.4, 'rgb(166,189,219)',
-            0.6, 'rgb(103,169,207)',
-            0.8, 'rgb(28,144,153)'
-          ],
-          // increase radius as zoom increases
-          'heatmap-radius': {
-            stops: [
-              [21, 25],
-              [25, 30]
-            ]
-          },
-          // decrease opacity to transition into the circle layer
-          'heatmap-opacity': {
-            default: 1,
-            stops: [
-              [14, 1],
-              [15, 0]
-            ]
-          },
-        }
-      }, 'waterway-label');
-
-      map.addLayer({
-        id: 'trees-point',
-        type: 'circle',
-        source: 'data',
-        minzoom: 14,
-        paint: {
-          // increase the radius of the circle as the zoom level and BANDWIDTH value increases
-          'circle-radius': {
-            property: 'CO2-emissions',
-            type: 'exponential',
-            stops: [
-              [{ zoom: 15, value: 1 }, 25],
-              [{ zoom: 15, value: 62 }, 20],
-              [{ zoom: 22, value: 1 }, 30],
-              [{ zoom: 22, value: 62 }, 60],
-            ]
-          },
-          'circle-color': {
-            property: 'CO2-emissions',
-            type: 'exponential',
-            stops: [
-              [0, 'rgba(236,222,239,0.1)'],
-              [0.10, 'rgb(236,222,239)'],
-              [0.20, 'rgb(208,209,230)'],
-              [0.30, 'rgb(166,189,219)'],
-              [0.50, 'rgb(103,169,207)'],
-              [0.70, 'rgb(28,144,153)'],
-              [0.90, 'rgb(1,108,89)']
-            ]
-          },
-          'circle-stroke-color': 'white',
-          'circle-stroke-width': 1,
-          'circle-opacity': {
-            stops: [
-              [14, 0],
-              [15, 1]
-            ]
-          }
-        }
-      }, 'waterway-label');
-
-      map.on('click', 'trees-point', function(e) {
-
-        new mapboxgl.Popup()
-        .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML('<b>CO2-emissions:</b> ' + e.features[0].properties["CO2-emissions"])
-        .addTo(map);
-        ;
-      });
-
-    }
-    map.setLayoutProperty('pollution', 'visibility', 'visible');
-    function randInt(max) {
-      return Math.floor(Math.random() * Math.floor(max));
-    }
-    function show_image(){
-      if (num >= 20 ){
-        num = 0;
-
-      }
-      var rand = randInt(500);
-      num= num+10;
-
-      var mark =currentMarkers[0];
-      if (selectedTree!=0){
-        num = selectedTree;
-      }
-      plantedTrees.push([rand,num,lng,lat]);
-      map.loadImage(
-        './img/tree'+num.toString()+'.png',
-        function (error, image) {
-          if (error) throw error;
-          map.addImage('tree'+rand.toString(), image);
-
-
-          map.addSource('point'+rand.toString(), {
-            'type': 'geojson',
-            'data': {
-              'type': 'FeatureCollection',
-              'features': [
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [lng, lat]
-
-                  }
-                }
-              ]
-            }
-          });
-
-
-
-          map.addLayer({
-            'id': 'points'+rand.toString(),
-            'type': 'symbol',
-            'source': 'point'+rand.toString(),
-
-            'layout': {
-              'icon-image': 'tree'+rand.toString(),
-              'icon-offset':[0,-500],
-              'icon-size': 0.1
-            }
-          });
-        }
-      );
-      for (var i = 0 ;i <currentMarkers.length;i++){
-        currentMarkers[i].remove();
-      }
-
-      console.log(plantedTrees);
-
-    }
-
-    function treesFromCookies(long,lati,rande,nume){
-      map.loadImage(
-        './img/tree'+nume.toString()+'.png',
-        function (error, image) {
-          if (error) throw error;
-          map.addImage('tree_loaded'+rande.toString(), image);
-          console.log('tree_loaded'+rande.toString());
-          map.addSource('point_loaded'+rande.toString(), {
-            'type': 'geojson',
-            'data': {
-              'type': 'FeatureCollection',
-              'features': [
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [long, lati]
-
-                  }
-                }
-              ]
-            }
-          });
-
-
-
-          map.addLayer({
-            'id': 'points_loaded'+rande.toString(),
-            'type': 'symbol',
-            'source': 'point_loaded'+rande.toString(),
-
-            'layout': {
-              'icon-image': 'tree_loaded'+rande.toString(),
-              'icon-offset':[0,-500],
-              'icon-size': 0.1
-            }
-          });
-        }
-      );
-    }
-
-    </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="./js/jquery.cookie.js"></script>
-    <script>
-    $(document).ready(function(){
-      $('#LoadingScreen').modal('show');
-
-      setTimeout(function() {
-        $('#LoadingScreen').modal('hide');
-      }, 300000);
-    });
-
-
-    function save(){
-      $.cookie('name', JSON.stringify(plantedTrees));
-      console.log("saved");
-      alert("All saved!");
-    }
-    function load(){
-      plantedTrees= JSON.parse($.cookie('name'));
-      console.log("loaded");
-      console.log(plantedTrees);
-      for (var e = 0;e<plantedTrees.length;e++){
-        long  =  plantedTrees[e][2];
-        lati  =  plantedTrees[e][3];
-        rande =  plantedTrees[e][0];
-        nume  =  plantedTrees[e][1];
-        treesFromCookies(long,lati,rande,nume)
-      }
-    }
-    </script>
-    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-  </body>
-  </html>
+</footer>
+<!-- Scroll Up -->
+<div id="back-top" >
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+
+<!-- JS here -->
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Date Picker -->
+<script src="./assets/js/gijgo.min.js"></script>
+<!-- Nice-select, sticky -->
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+<!-- Progress -->
+<script src="./assets/js/jquery.barfiller.js"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="./assets/js/jquery.counterup.min.js"></script>
+<script src="./assets/js/waypoints.min.js"></script>
+<script src="./assets/js/jquery.countdown.min.js"></script>
+<script src="./assets/js/hover-direction-snake.min.js"></script>
+
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+
+</body>
+</html>

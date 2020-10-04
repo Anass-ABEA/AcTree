@@ -16,7 +16,24 @@ body{
 #exampleModal{
   z-index: 1;
 }
-
+#logoModal{
+  width: 120%;
+  height:  50%;
+}
+#myImpactChart{
+  width: 100%;
+}
+#resizer{
+  width: 800px;
+}
+.logo{
+  position: absolute;
+  margin-left: 20px;
+}
+.logo2{
+  width: 500px;
+  height: 500px;
+}
 html{
     min-height:100%;
     position:relative;
@@ -25,7 +42,7 @@ html{
 .map1{
   position: absolute;
     width: 80%;
-    margin-left: 30%;
+    margin-left: 460px;
     height: 100%;
 }
 #myChart{
@@ -108,14 +125,14 @@ header {
 .left-menu{
   float: left;
   overflow-y: scroll;
-  width: 30%;
+  width: 460px;
   height: 100%;
   background-color: #c7c7c7;
 }
 
 .right-menu{
   float: left;
-  margin-left: 30%;
+  margin-left: 460px;
   width: 80%;
   height: 100%;
 }
